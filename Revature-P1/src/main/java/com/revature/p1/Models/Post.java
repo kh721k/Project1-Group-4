@@ -9,20 +9,20 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pID")
-    private Integer pID;
+    private Integer postId;
 
     @Column(name = "content")
     String content;
 
     @Column(name = "uID")
-    Integer uID;
+    Integer userId;
 
-    public Integer getpID() {
-        return pID;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public void setpID(Integer pID) {
-        this.pID = pID;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getContent() {
@@ -33,11 +33,11 @@ public class Post {
         this.content = content;
     }
 
-    public Integer getuID() {
-        return uID;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setuID(Integer uID) {
-        this.uID = uID;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

@@ -9,7 +9,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cID")
-    private Integer cID;
+    private Integer commentId;
 
     @Column(name = "description")
     private String description;
@@ -17,12 +17,12 @@ public class Comment {
     @Column(name = "pID")
     private Integer pID;
 
-    public Integer getcID() {
-        return cID;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setcID(Integer cID) {
-        this.cID = cID;
+    public void setcID(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public String getDescription() {

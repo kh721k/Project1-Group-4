@@ -12,13 +12,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uID")
-    private Integer uID;
+    private Integer userId;
 
     @Column(name = "fname")
     private String fname;
 
     @Column(name = "lname")
     private String lname;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "bio")
     String bio;
@@ -29,12 +32,34 @@ public class User {
     @Column(name = "password")
         String password;
 
-    public Integer getuID() {
-        return uID;
+    public User() {
     }
 
-    public void setuID(Integer uID) {
-        this.uID = uID;
+    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password) {
+        this.userId = userId;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.bio = bio;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String fname, String lname, String email, String bio, String username, String password) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.bio = bio;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getFname() {
@@ -51,6 +76,14 @@ public class User {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getBio() {
