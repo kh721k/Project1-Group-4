@@ -1,6 +1,10 @@
 package com.revature.p1.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Posts")
@@ -8,14 +12,39 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postId")
     private Integer postId;
+    private String content;
+    private int like;
+    private int shares;
 
-    @Column(name = "content")
-    String content;
+//    @Column(name = "timestamp")
+//    private Date timestamp;
 
-    @Column(name = "uID")
-    Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
+    @OneToMany(mappedBy = "post")
+    @JsonManagedReference
+    List<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    @JsonManagedReference
+    List<Likes> likes;
+
+    public Post(Integer postId, String content, int like, int shares, User user, List<Comment> comments, List<Likes> likes) {
+        this.postId = postId;
+        this.content = content;
+        this.like = like;
+        this.shares = shares;
+        this.user = user;
+        this.comments = comments;
+        this.likes = likes;
+    }
+
+    public Post() {
+    }
 
     public Integer getPostId() {
         return postId;
@@ -33,11 +62,43 @@ public class Post {
         this.content = content;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public int getLike() {
+        return like;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getShares() {
+        return shares;
+    }
+
+    public void setShares(int shares) {
+        this.shares = shares;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
     }
 }
