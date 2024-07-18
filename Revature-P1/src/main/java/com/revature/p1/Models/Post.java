@@ -13,7 +13,6 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer postId;
 
 
@@ -41,13 +40,17 @@ public class Post {
     @JsonManagedReference
     List<Likes> likes;
 
-    public Post(Integer postId, String content, int like, int shares, User user) {
+    public Post(Integer postId, String content, int like, int shares, User user, List<Comment> comments, List<Likes> likes) {
         this.postId = postId;
         this.content = content;
         this.like = like;
         this.shares = shares;
-        //this.timestamp = timestamp;
         this.user = user;
+        this.comments = comments;
+        this.likes = likes;
+    }
+
+    public Post() {
     }
 
     public Integer getPostId() {
@@ -82,14 +85,6 @@ public class Post {
         this.shares = shares;
     }
 
-//    public Date getTimestamp() {
-//        return timestamp;
-//    }
-
-//    public void setTimestamp(Date timestamp) {
-//        this.timestamp = timestamp;
-//    }
-
     public User getUser() {
         return user;
     }
@@ -98,4 +93,19 @@ public class Post {
         this.user = user;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
+    }
 }
