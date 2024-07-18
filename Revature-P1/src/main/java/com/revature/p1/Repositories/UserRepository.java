@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.revature.p1.Models.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
