@@ -8,8 +8,10 @@ import com.revature.p1.Models.*;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("INSERT INTO users (fname, lname, email, bio, username, pwd) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
-    User registration(User user);
+    //TODO :login
+    //use repo.save
+    //@Query("INSERT INTO users (fname, lname, email, bio, username, pwd) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
+    //User registration(User user);
 
     @Query("SELECT * FROM users WHERE uID = ?1")
     User findUserByUserId(Integer uID);

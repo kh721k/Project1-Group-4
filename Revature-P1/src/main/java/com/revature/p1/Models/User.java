@@ -1,7 +1,10 @@
 package com.revature.p1.Models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 
 import java.util.List;
@@ -21,6 +24,9 @@ public class User {
 
     private String bio;
 
+    @Column(unique = true, nullable = false)
+    @Length(min = 6, max = 20)
+    @Pattern(regexp = "^[A-Za-z0-9]{6,20}$")
     private String username;
 
     private String password;

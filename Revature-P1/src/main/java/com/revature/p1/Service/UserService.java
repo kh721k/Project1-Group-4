@@ -15,7 +15,7 @@ public class UserService {
     //CRUD
     //TODO : login
     public User createUser(User user){
-        return uRepo.registration(user);
+        return uRepo.save(user);
     }
 
     public User getUser(int userID) {
