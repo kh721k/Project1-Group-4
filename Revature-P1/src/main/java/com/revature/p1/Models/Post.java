@@ -8,7 +8,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pID")
+    @Column(name = "postId")
     private Integer postId;
 
     @Column(name = "content")

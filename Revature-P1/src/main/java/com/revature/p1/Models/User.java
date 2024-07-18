@@ -1,36 +1,33 @@
 package com.revature.p1.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
 import java.util.List;
 import java.util.ArrayList;
 
-@Entity
-@Table(name = "Users")
+@Entity(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "uID")
     private Integer userId;
 
-    @Column(name = "fname")
     private String fname;
 
-    @Column(name = "lname")
     private String lname;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "bio")
-    String bio;
+    private String bio;
 
-    @Column(name = "username")
-    String username;
+    private String username;
 
-    @Column(name = "password")
-        String password;
+    private String password;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    List<Post> posts;
 
     public User() {
     }
@@ -108,5 +105,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

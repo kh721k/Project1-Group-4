@@ -13,19 +13,25 @@ public class UserService {
     private UserRepository uRepo;
 
     //CRUD
-
+    //TODO : login
     public User createUser(User u){
         return uRepo.save(u);
     }
 
     public User getUser(int userID) {
-        return uRepo.getById(userID);
+        return uRepo.findUserByUserId(userID);
     }
 
-    public User getUser(String username) {
-        return uRepo.getByName(username);
+    public User getUser(String username){
+        return uRepo.findUserByUsername(username);
     }
-    public void deleteUser(User u) {
-        uRepo.delete(u);
+
+    public User updateUser(User user){
+        return uRepo.save(user);
     }
+
+    public void deleteUser(Integer userId){
+        uRepo.delUser(userId);
+    }
+
 }

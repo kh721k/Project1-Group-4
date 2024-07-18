@@ -8,7 +8,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cID")
+    @Column(name = "commentId")
     private Integer commentId;
 
     @Column(name = "description")
