@@ -14,14 +14,8 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
-
-
     private String content;
-
-
     private int like;
-
-
     private int shares;
 
 //    @Column(name = "timestamp")
