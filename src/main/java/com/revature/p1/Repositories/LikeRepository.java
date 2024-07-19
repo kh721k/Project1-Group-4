@@ -8,5 +8,6 @@ import com.revature.p1.Models.*;
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Integer> {
     // https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
+    List<Like> findByPostId(Int postId);
 
 }
