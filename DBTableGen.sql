@@ -1,7 +1,7 @@
 drop table if exists likes;
 drop table if exists comments;
 drop table if exists posts;
-drop table if exists connections;
+drop table if exists follows;
 drop table if exists users;
 
 
@@ -18,13 +18,12 @@ create table users (
 	profile_pic varchar(40)
 );
 
-create table connections (
-	connection_id serial primary key not null,
+create table follows (
+	follows_id serial primary key not null,
 
-	user_id integer references users(user_id) on delete cascade,
-	requester_id integer references users(user_id) on delete cascade,
+	follower_id integer references users(user_id) on delete cascade,
+	following_id integer references users(user_id) on delete cascade,
 
-	is_connected boolean,
 	event_time timestamp
 );
 
