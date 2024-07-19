@@ -20,8 +20,9 @@ public class UserService {
         return uRepo.save(user);
     }
 
-    public User getUser(int userID) {
-        return uRepo.findUserByUserId(userID);
+    public Optional<User> getUser(int userID) {
+
+        return uRepo.findById(userID);
     }
 
     public User getUser(String username){
