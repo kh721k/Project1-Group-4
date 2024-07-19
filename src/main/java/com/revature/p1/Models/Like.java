@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-@Entity(name = "comments")
-public class Comment {
+@Entity(name = "likes")
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer commentId;
-    private String content;
+    private Integer likeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -21,30 +20,21 @@ public class Comment {
     @JsonBackReference
     private Post post;
 
-    public Comment() {
+    public Like() {
     }
 
-    public Comment(Integer commentId, String content, User user, Post post) {
-        this.commentId = commentId;
-        this.content = content;
+    public Like(Integer likeId, User user, Post post) {
+        this.likeId = likeId;
         this.user = user;
         this.post = post;
     }
 
-    public Integer getCommentId() {
-        return commentId;
+    public Integer getLikeId() {
+        return likeId;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setLikeId(Integer likeId) {
+        this.likeId = likeId;
     }
 
     public User getUser() {
