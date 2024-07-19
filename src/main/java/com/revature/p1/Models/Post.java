@@ -6,16 +6,14 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "Posts")
+@Entity(name = "posts")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
     private String content;
-    private int like;
-    private int shares;
+    private Integer shares;
 
 //    @Column(name = "timestamp")
 //    private Date timestamp;
@@ -33,17 +31,14 @@ public class Post {
     @JsonManagedReference
     List<Likes> likes;
 
-    public Post(Integer postId, String content, int like, int shares, User user, List<Comment> comments, List<Likes> likes) {
-        this.postId = postId;
-        this.content = content;
-        this.like = like;
-        this.shares = shares;
-        this.user = user;
-        this.comments = comments;
-        this.likes = likes;
+    public Post() {
     }
 
-    public Post() {
+    public Post(Integer postId, String content, Integer shares, User user) {
+        this.postId = postId;
+        this.content = content;
+        this.shares = shares;
+        this.user = user;
     }
 
     public Integer getPostId() {
@@ -62,19 +57,11 @@ public class Post {
         this.content = content;
     }
 
-    public int getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    public int getShares() {
+    public Integer getShares() {
         return shares;
     }
 
-    public void setShares(int shares) {
+    public void setShares(Integer shares) {
         this.shares = shares;
     }
 
