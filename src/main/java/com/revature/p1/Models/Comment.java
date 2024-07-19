@@ -2,7 +2,7 @@ package com.revature.p1.Models;
 
 import jakarta.persistence.*;
 
-@Entity(name = "comment")
+@Entity(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
