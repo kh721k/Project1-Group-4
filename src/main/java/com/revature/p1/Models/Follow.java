@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity(name = "follows")
-public class Follows {
+public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer followsId;
+    private Integer followId;
 
     @ManyToOne
     @JoinColumn(name = "follower_id")
@@ -18,21 +18,21 @@ public class Follows {
     @JoinColumn(name = "following_id")
     private User following;
 
-    public Follows() {
+    public Follow() {
     }
 
-    public Follows(Integer followsId, User follower, User following) {
-        this.followsId = followsId;
+    public Follow(Integer followId, User follower, User following) {
+        this.followId = followId;
         this.follower = follower;
         this.following = following;
     }
 
-    public Integer getFollowsId() {
-        return followsId;
+    public Integer getFollowId() {
+        return followId;
     }
 
-    public void setFollowsId(Integer followsId) {
-        this.followsId = followsId;
+    public void setFollowId(Integer followId) {
+        this.followId = followId;
     }
 
     public User getFollower() {

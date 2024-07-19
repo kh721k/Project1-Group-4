@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity(name = "likes")
-public class Likes {
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer likeId;
@@ -20,10 +20,10 @@ public class Likes {
     @JsonBackReference
     private Post post;
 
-    public Likes() {
+    public Like() {
     }
 
-    public Likes(Integer likeId, User user, Post post) {
+    public Like(Integer likeId, User user, Post post) {
         this.likeId = likeId;
         this.user = user;
         this.post = post;

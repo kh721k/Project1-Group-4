@@ -37,15 +37,15 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    List<Likes> likes;
+    List<Like> likes;
 
     @OneToMany(mappedBy = "follower")
     @JsonManagedReference
-    private List<Follows> following;
+    private List<Follow> following;
 
     @OneToMany(mappedBy = "following")
     @JsonManagedReference
-    private List<Follows> followers;
+    private List<Follow> followers;
 
     public User() {
     }
@@ -141,27 +141,27 @@ public class User {
         this.comments = comments;
     }
 
-    public List<Likes> getLikes() {
+    public List<Like> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Likes> likes) {
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
     }
 
-    public List<Follows> getFollowing() {
+    public List<Follow> getFollowing() {
         return following;
     }
 
-    public void setFollowing(List<Follows> following) {
+    public void setFollowing(List<Follow> following) {
         this.following = following;
     }
 
-    public List<Follows> getFollowers() {
+    public List<Follow> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(List<Follows> followers) {
+    public void setFollowers(List<Follow> followers) {
         this.followers = followers;
     }
 }

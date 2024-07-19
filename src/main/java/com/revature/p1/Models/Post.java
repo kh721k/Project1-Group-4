@@ -29,7 +29,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     @JsonManagedReference
-    List<Likes> likes;
+    List<Like> likes;
 
     public Post() {
     }
@@ -81,11 +81,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public List<Likes> getLikes() {
+    public List<Like> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Likes> likes) {
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
     }
 }
