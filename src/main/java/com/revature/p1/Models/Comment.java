@@ -2,42 +2,62 @@ package com.revature.p1.Models;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "Comment")
+@Entity(name = "comment")
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "commentId")
     private Integer commentId;
+    private String content;
 
-    @Column(name = "description")
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
-    @Column(name = "pID")
-    private Integer pID;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    @JsonBackReference
+    private Post post;
+
+    public Comment() {
+    }
+
+    public Comment(Integer commentId, String content, User user, Post post) {
+        this.commentId = commentId;
+        this.content = content;
+        this.user = user;
+        this.post = post;
+    }
 
     public Integer getCommentId() {
         return commentId;
     }
 
-    public void setcID(Integer commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Integer getpID() {
-        return pID;
+    public User getUser() {
+        return user;
     }
 
-    public void setpID(Integer pID) {
-        this.pID = pID;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

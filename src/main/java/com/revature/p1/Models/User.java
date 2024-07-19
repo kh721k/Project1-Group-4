@@ -15,13 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
-
     private String fname;
-
     private String lname;
-
     private String email;
-
     private String bio;
 
     @Column(unique = true, nullable = false)
@@ -34,6 +30,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
     List<Post> posts;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    List<Comment> comments;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    List<Likes> likes;
 
     public User() {
     }
@@ -119,5 +123,21 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
     }
 }
