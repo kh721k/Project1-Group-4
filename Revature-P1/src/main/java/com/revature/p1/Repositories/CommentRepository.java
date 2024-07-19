@@ -8,5 +8,5 @@ import com.revature.p1.Models.*;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     // https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
-
+    List<Comment> findByPostId(Int postId);
 }
