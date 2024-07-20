@@ -24,10 +24,10 @@ hs_err_pid*
 replay_pid*
 
 # Maven
-.classpath
-.project
-.settings/
-target/
+**/.classpath
+**/.project
+**/.settings/
+**/target/
 
 # Secret
 **/*.properties
