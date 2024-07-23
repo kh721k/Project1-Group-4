@@ -18,8 +18,8 @@ public class UserService {
         return uRepo.save(user);
     }
 
-    public User getUser(int userID) {
-        return uRepo.findUserByUserId(userID);
+    public User getUser(int userId) {
+        return uRepo.findUserByUserId(userId);
     }
 
     public User getUser(String username){
