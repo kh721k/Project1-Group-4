@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     //use repo.save
     @Query("UPDATE users SET fname = ?1 , lname = ?2 , email = ?3, bio = ?4 , username = ?5 , password = ?6")
-    void updateUser(User user);
+    User updateUser(Integer userId);
 
     @Query("DELETE FROM users WHERE user_id = ?1")
     void delUser(Integer userId);

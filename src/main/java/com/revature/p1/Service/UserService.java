@@ -26,8 +26,8 @@ public class UserService {
         return uRepo.findUserByUsername(username);
     }
 
-    public User updateUser(User user){
-        return uRepo.save(user);
+    public User updateUser(Integer userId){
+        return uRepo.updateUser(userId);
     }
 
     public void deleteUser(Integer userId){
