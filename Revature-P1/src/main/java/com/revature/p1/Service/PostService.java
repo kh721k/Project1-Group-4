@@ -3,18 +3,25 @@ package com.revature.p1.Service;
 import com.revature.p1.Exceptions.PostContentIsEmptyException;
 import com.revature.p1.Exceptions.PostNotFoundException;
 import com.revature.p1.Models.Post;
+import com.revature.p1.Models.User;
 import com.revature.p1.Repositories.PostRepository;
+import com.revature.p1.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class PostService {
 
     @Autowired
     private PostRepository postRepo;
+    private UserRepository userRepo;
 
     public Post createPost(Post post) {
         if (post.getContent().isEmpty()) {
@@ -54,6 +61,33 @@ public class PostService {
         else{
             postRepo.deleteByPostId(postId);
         }
+    }
+
+    public Post sharePost(int postId, int userId){
+        Post originalPost = postRepo.findByPostId(postId);
+        if(originalPost == null){
+            System.out.println("Original post does not exist.");
+            throw new RuntimeException("Original post does not exist.");
+        }
+
+        User user = userRepo.findUserByUserId(userId);
+        if (user == null) {
+            System.out.println("User does not exist.");
+            throw new RuntimeException("User does not exist.");
+        }
+
+        Post sharePost = new Post();
+
+        sharePost.setContent(originalPost.getContent());
+        sharePost.setUser(user);
+        sharePost.setShares(0);
+
+        originalPost.setShares(originalPost.getShares() + 1);
+
+        postRepo.save(sharePost);
+        postRepo.save(originalPost);
+
+        return sharePost;
     }
 
 }
