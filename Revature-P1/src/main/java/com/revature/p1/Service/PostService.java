@@ -28,6 +28,7 @@ public class PostService {
             System.out.println("There is no content.");
             throw new PostContentIsEmptyException("There is no content.");
         } else {
+            post.setShares(0);
             return postRepo.save(post);
         }
     }
