@@ -21,8 +21,6 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    // TODO: Might be missing something, and/or totally wrong about these methods
-
     public void create(String content, Integer userId, Integer postId, Timestamp time) {
         commentRepository.create(content, userId, postId, time);
     }

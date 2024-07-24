@@ -11,12 +11,13 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/comments/ping")
-    @ResponseStatus(HttpStatus.OK)
-    public 
+//    @GetMapping("/comments/ping")
+//    @ResponseStatus(HttpStatus.OK)
+//    public
 
     @PostMapping("/comments")
     @ResponseStatus(HttpStatus.CREATED)
-    public Comment create(@RequestBody) {
+    public Comment create(@RequestBody Comment cmt) {
+        return null;
     }
 }
