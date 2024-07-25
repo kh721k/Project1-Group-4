@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 public class LikeController {
@@ -18,7 +20,7 @@ public class LikeController {
     @GetMapping("/posts/{post_id}/likes")
     public ResponseEntity<List<Like>> getLikesForPost(@PathVariable("post_id") Integer postId) {
         List<Like> likes = likeService.getLikesForPost(postId);
-        return ResponseEntity.body(likes);
+        return ResponseEntity.ok(likes);
     }
 
     @PostMapping("/posts/{post_id}/newLike")
