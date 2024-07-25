@@ -26,8 +26,8 @@ public class UserService {
         return uRepo.save(user);
     }
 
-    public Optional<User> getUser(int userID) {
-        return uRepo.findById(userID);
+    public Optional<User> getUsers(int userId) {
+        return uRepo.findById(userId);
     }
 
     public User getUser(String username){
