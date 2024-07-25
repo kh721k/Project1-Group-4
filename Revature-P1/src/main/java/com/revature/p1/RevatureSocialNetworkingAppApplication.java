@@ -12,8 +12,6 @@ import java.util.Optional;
 public class RevatureSocialNetworkingAppApplication {
 
 	public static void main(String[] args) {
-
-
 		ApplicationContext ac = SpringApplication.run(RevatureSocialNetworkingAppApplication.class, args);
 		UserService us = ac.getBean(UserService.class);
 		Optional<User> optionalUser = us.getUser(1);
@@ -22,5 +20,4 @@ public class RevatureSocialNetworkingAppApplication {
 			System.out.println(user.getBio());
 		}
 	}
-
 }

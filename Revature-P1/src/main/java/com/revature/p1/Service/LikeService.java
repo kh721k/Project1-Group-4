@@ -30,5 +30,4 @@ public class LikeService {
     public List<Likes> getLikesForPost(Integer postId) {
         return likeRepo.findByPostId(postId);
     }
-
 }

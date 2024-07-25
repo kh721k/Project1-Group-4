@@ -68,3 +68,6 @@ gradle.xml
 .idea/
 *.properties
 
+
+*.properties
+*.iml
