@@ -5,8 +5,13 @@ import com.revature.p1.Models.User;
 import com.revature.p1.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class UserService {
 
     @Autowired
@@ -15,6 +20,7 @@ public class UserService {
     //CRUD
     //TODO : login
     public User createUser(User user){
+        user.setPassword(BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray()));
         return uRepo.save(user);
     }
 
