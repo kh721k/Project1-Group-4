@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Integer> {
-    // https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
-    List<Like> findByPostId(int postId);
-
+    List<Like> findByPostId(Integer postId);
+    void deleteByUserIdAndPostId(Integer userId, Integer postId);
 }
