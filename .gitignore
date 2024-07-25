@@ -65,3 +65,6 @@ replay_pid*
 **/*.iml
 **/.idea/
 gradle.xml
+.idea/
+*.properties
+
