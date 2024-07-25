@@ -10,46 +10,50 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class PostController {
 
+    private final PostService postService;
+
     @Autowired
-    PostService postService;
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @CrossOrigin
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Post createPost(@RequestBody Post post){
+    public Post createPost(@RequestBody Post post){
         return postService.createPost(post);
     }
 
     @GetMapping("/post/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Post getPostByPostId(@PathVariable Integer postId){
+    public Post getPostByPostId(@PathVariable Integer postId){
         return postService.getPostByPostId(postId);
     }
 
     @GetMapping("/post/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody List<Post> getUsersPosts(@PathVariable Integer userId){
+    public List<Post> getUsersPosts(@PathVariable Integer userId){
         return postService.getPostsByUser(userId);
     }
 
     @PutMapping("/post")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Post editPost(@PathVariable int postId, @RequestBody Post post){
+    public Post editPost(@PathVariable int postId, @RequestBody Post post){
         return postService.editPost(postId, post);
     }
 
     @DeleteMapping("/post/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody void deletePost(@PathVariable int postId){
+    public void deletePost(@PathVariable int postId){
         postService.deletePost(postId);
     }
 
     @PostMapping("/post/{postId}/share")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Post sharePost(@PathVariable int postId, @RequestBody User user){
+    public Post sharePost(@PathVariable int postId, @RequestBody User user){
         return postService.sharePost(postId, user.getUserId());
     }
 }
