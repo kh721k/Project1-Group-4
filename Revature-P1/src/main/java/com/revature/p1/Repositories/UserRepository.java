@@ -16,13 +16,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User registration(User user);
 
     @Query("SELECT * FROM users WHERE user_id = ?1")
-    User findUserByUserId(Integer uID);
+
+    User findUserByUserId(Integer userId);
+
 
     @Query("SELECT * FROM users WHERE username = ?1")
     User findUserByUsername(String username);
 
     //use repo.save
     @Query("UPDATE users SET fname = ?1 , lname = ?2 , email = ?3, bio = ?4 , username = ?5 , password = ?6")
+
     User updateUser(Integer userId);
 
     @Query("DELETE FROM users WHERE user_id = ?1")

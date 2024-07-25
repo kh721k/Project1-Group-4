@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 
 @Entity(name = "follows")
 public class Follow {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer followId;
 
     @ManyToOne
     @JoinColumn(name = "follower_id")
@@ -25,14 +22,6 @@ public class Follow {
         this.follower = follower;
         this.following = following;
     }
-
-//    public Integer getFollowId() {
-//        return followId;
-//    }
-//
-//    public void setFollowId(Integer followId) {
-//        this.followId = followId;
-//    }
 
     public User getFollower() {
         return follower;

@@ -27,7 +27,6 @@ public class UserService {
     }
 
     public Optional<User> getUser(int userID) {
-
         return uRepo.findById(userID);
     }
 
@@ -37,6 +36,10 @@ public class UserService {
 
     public User updateUser(Integer userId){
         return uRepo.updateUser(userId);
+    }
+
+    public User getUser(int userId) {
+        return uRepo.findUserByUserId(userId);
     }
 
     public void deleteUser(Integer userId){
