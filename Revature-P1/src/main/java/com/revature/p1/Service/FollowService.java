@@ -12,9 +12,19 @@ public class FollowService {
 
     @Autowired
     private FollowRepository followRepo;
+    private UserRepository userRepo;
 
-    public void createFollow(Follow follow){
+    public void createFollow(Integer followerId, Integer followingId){
+        User follower = userRepo.findByUserId(followerId);
+        User following = userRepo.findByUserId(followingId);
+        Follow follow = new Follow();
+        follow.setFollower(follower);
+        follow.setFollowing(following);
         followRepo.save(follow);
+    }
+
+    public void deleteFollow(Integer followerId, Integer followingId){
+        followRepo.deleteByFollowerIdAndFollowingId(followerId, followingId);
     }
 
     public List<Follow> getFollowers(Integer userId) {

@@ -39,6 +39,18 @@ public class User {
     @JsonManagedReference
     List<Like> likes;
 
+//    @ManyToMany
+//    @JoinTable(name = "follows") // "users_users"
+//    List<User> follows;
+
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "relation")
+//    @Fetch(FetchMode.SUBSELECT)
+//    private Set<UserRelation> followers = new HashSet<>();
+//
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "relation")
+//    @Fetch(FetchMode.SUBSELECT)
+//    private Set<UserRelation> following = new HashSet<>();
+
     @OneToMany(mappedBy = "follower")
     @JsonManagedReference
     private List<Follow> following;
