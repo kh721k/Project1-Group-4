@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class PostController {
 
@@ -14,16 +16,24 @@ public class PostController {
     PostService postService;
 
     @CrossOrigin
+    @PostMapping("/post")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Post createPost(@RequestBody Post post){
+        return postService.createPost(post);
+    }
+
     @GetMapping("/post/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Post getPostByPostId(@PathVariable Integer postId){
         return postService.getPostByPostId(postId);
     }
 
-    @PostMapping("/post")
+    @GetMapping("/post/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Post createPost(@RequestBody Post post){
-        return postService.createPost(post);
+    public @ResponseBody List<Post> getUsersPosts(@PathVariable Integer userId){
+        return postService.getPostsByUser(userId);
     }
+
+
 
 }
