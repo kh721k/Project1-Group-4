@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public User userById(@PathVariable Integer uid){
+    public Optional<User> userById(@PathVariable Integer uid){
         return userService.getUser(uid);
     }
 

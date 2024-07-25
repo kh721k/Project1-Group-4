@@ -23,3 +23,5 @@ buildNumber.properties
 gradle.xml
 .idea/libraries/**/*.xml
 **/.idea/workspace.xml
+.idea/
+*.properties
