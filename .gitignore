@@ -37,7 +37,5 @@ replay_pid*
 
 # IntelliJ Idea
 **/*.iml
-.idea/modules.xml
+**/.idea/
 gradle.xml
-.idea/libraries/**/*.xml
-**/.idea/workspace.xml
