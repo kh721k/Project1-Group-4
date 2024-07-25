@@ -1,7 +1,9 @@
 package com.revature.p1.Controllers;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.revature.p1.Exceptions.InvalidLogin;
 import com.revature.p1.Models.User;
+import com.revature.p1.Service.AuthDto;
 import com.revature.p1.Service.JwtTokenService;
 import com.revature.p1.Service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     private JwtTokenService tokenService;
+
+    @Autowired
+    private AuthDto authDto;
 
     @GetMapping("/user/{username}")
     public User userByUsername(@PathVariable String username){
@@ -71,7 +76,9 @@ public class UserController {
         }
         else{
             User temp = userService.getUser(user.getUsername());
-            if(user.getPassword().equals(temp.getPassword())){
+            String hashedPassword = this.userService.getUser(authDto.getUsername()).getPassword();
+            BCrypt.Result result = BCrypt.verifyer().verify(authDto.getPassword().toCharArray(), hashedPassword);
+            if(result.verified){
                 Map<String, String> claimsMap = new HashMap<>();
                 claimsMap.put("username", temp.getUsername());
                 claimsMap.put("userID", String.valueOf(temp.getUserId()));
