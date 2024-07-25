@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
+
+    @Column(name = "content")
     private String content;
 
     @ManyToOne
@@ -20,6 +24,9 @@ public class Comment {
     @JoinColumn(name = "post_id")
     @JsonBackReference
     private Post post;
+
+    @Column(name = "timestamp")
+    Timestamp time;
 
     public Comment() {
     }
@@ -61,5 +68,21 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "content='" + content + '\'' +
+                ", commentId=" + commentId +
+                '}';
     }
 }

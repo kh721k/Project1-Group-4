@@ -6,10 +6,6 @@ import jakarta.persistence.*;
 
 @Entity(name = "likes")
 public class Like {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer likeId;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
@@ -23,18 +19,9 @@ public class Like {
     public Like() {
     }
 
-    public Like(Integer likeId, User user, Post post) {
-        this.likeId = likeId;
+    public Like(User user, Post post) {
         this.user = user;
         this.post = post;
-    }
-
-    public Integer getLikeId() {
-        return likeId;
-    }
-
-    public void setLikeId(Integer likeId) {
-        this.likeId = likeId;
     }
 
     public User getUser() {

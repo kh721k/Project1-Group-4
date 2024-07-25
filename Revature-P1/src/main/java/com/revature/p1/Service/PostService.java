@@ -18,10 +18,14 @@ import java.util.List;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class PostService {
-
-    @Autowired
     private PostRepository postRepo;
     private UserRepository userRepo;
+  
+  @Autowired
+  public PostService(PostRepository postRepository, UserRepository userRepository) {
+    this.postRepo = postRepository;
+    this.userRepo = userRepository;
+  }
 
     public Post createPost(Post post) {
         if (post.getContent().isEmpty()) {

@@ -38,7 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
     List<Like> likes;
-
+  
     @OneToMany(mappedBy = "follower")
     @JsonManagedReference
     private List<Follow> following;

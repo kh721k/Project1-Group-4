@@ -20,6 +20,10 @@ import javax.crypto.SecretKey;
 
 @Service
 public class JwtTokenService {
+    //private final Environment environment; used for hard coding login
+    //String tempKey = "8aab27ecdeb314b8b40aecbe3444fc5efdd20ae9822394a61cc3c24b49fbcd08";
+    //private final SecretKey decodedKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(tempKey));
+
     private final Environment environment;
     private final SecretKey decodedKey;
 
@@ -55,10 +59,9 @@ public class JwtTokenService {
                 .parseSignedClaims(token);
     }
 
-    public boolean validateAuthentication(String bearerToken) {
+    public boolean validateAuthentication(String bearerToken, String username) {
         Jws<Claims> claims = this.parseToken(bearerToken);
 
-        return claims.getPayload().get("username").equals(environment.getProperty("AUTH_USERNAME"));
-
+        return claims.getPayload().get("username").equals(username);
     }
 }
