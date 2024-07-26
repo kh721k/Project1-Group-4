@@ -2,8 +2,7 @@ package com.revature.p1.Service;
 
 import com.revature.p1.Exceptions.PostContentIsEmptyException;
 import com.revature.p1.Exceptions.PostNotFoundException;
-import com.revature.p1.Models.Post;
-import com.revature.p1.Models.User;
+import com.revature.p1.Models.*;
 import com.revature.p1.Repositories.PostRepository;
 import com.revature.p1.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +92,18 @@ public class PostService {
         postRepo.save(originalPost);
 
         return sharePost;
+    }
+
+    // get post likes (usersWhoLikeThisPost)
+    public List<User> getPostLikes(Integer postId) {
+      Post post = postRepo.findByPostId(postId);
+      return post.getUsersWhoLikeThisPost();
+    }
+
+    // get post comments
+    public List<Comment> getCommentsByPost(Integer postId) {
+        Post post = postRepo.findByPostId(postId);
+        return post.getComments();
     }
 
 }

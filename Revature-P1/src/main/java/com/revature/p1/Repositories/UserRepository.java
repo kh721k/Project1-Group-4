@@ -32,8 +32,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("DELETE FROM users WHERE user_id = ?1")
     void delUser(Integer userId);
 
-    // find followers of a user
-    @Query("SELECT u FROM User u JOIN u.following f WHERE f.userId = ?1")
+    // Native SQL Query
+    @Query(value = "SELECT * FROM users u JOIN follower_junction f ON u.user_id = f.follower_id WHERE f.following_id = ?1", nativeQuery = true)
     List<User> findFollowersByUserId(Integer userId);
+
+    // SELECT * FROM users u
+    // JOIN follower_junction f
+    // ON u.user_id = f.follower_id
+    // WHERE f.following_id = ?1
 
 }
