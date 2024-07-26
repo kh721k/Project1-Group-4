@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public User userById(@PathVariable Integer uid){
+    public Optional<User> userById(@PathVariable Integer uid){
         return userService.getUser(uid);
     }
 
@@ -79,8 +79,8 @@ public class UserController {
         }
         else{
             User temp = userService.getUser(user.getUsername());
-            String hashedPassword = this.userService.getUser(authDto.getUsername()).getPassword();
-            BCrypt.Result result = BCrypt.verifyer().verify(authDto.getPassword().toCharArray(), hashedPassword);
+            String hashedPassword = this.userService.getUser(user.getUsername()).getPassword();
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getPassword().toCharArray(), hashedPassword);
             if(result.verified){
                 Map<String, String> claimsMap = new HashMap<>();
                 claimsMap.put("username", temp.getUsername());
