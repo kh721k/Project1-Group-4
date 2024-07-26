@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity(name = "comments")
 public class Comment {
@@ -16,26 +17,35 @@ public class Comment {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     @JsonBackReference
-    private User user;
+    private User author;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     @JsonBackReference
     private Post post;
 
-    @Column(name = "timestamp")
-    Timestamp time;
+    @ManyToMany
+    @JsonBackReference
+    @JoinTable
+    private List<User> usersWhoLikeThisComment;
 
     public Comment() {
     }
 
-    public Comment(Integer commentId, String content, User user, Post post) {
+    public Comment(String content, User author, Post post) {
+        this.content = content;
+        this.author = author;
+        this.post = post;
+    }
+
+    public Comment(Integer commentId, String content, User author, Post post, List<User> usersWhoLikeThisComment) {
         this.commentId = commentId;
         this.content = content;
-        this.user = user;
+        this.author = author;
         this.post = post;
+        this.usersWhoLikeThisComment = usersWhoLikeThisComment;
     }
 
     public Integer getCommentId() {
@@ -54,12 +64,12 @@ public class Comment {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Post getPost() {
@@ -70,19 +80,11 @@ public class Comment {
         this.post = post;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public List<User> getUsersWhoLikeThisComment() {
+        return usersWhoLikeThisComment;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "content='" + content + '\'' +
-                ", commentId=" + commentId +
-                '}';
+    public void setUsersWhoLikeThisComment(List<User> usersWhoLikeThisComment) {
+        this.usersWhoLikeThisComment = usersWhoLikeThisComment;
     }
 }
