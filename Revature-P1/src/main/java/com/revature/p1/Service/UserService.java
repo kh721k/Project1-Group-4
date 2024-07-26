@@ -85,29 +85,4 @@ public class UserService {
         }
     }
 
-    // get liked posts
-    public List<Post> getPostsLikedByUser(Integer userId) {
-        User user = userRepo.findUserByUserId(userId);
-        return user.getLikedPosts();
-    }
-
-    // create like for a post
-    public void likePost(Integer userId, Integer postId) {
-        User user = userRepo.findUserByUserId(userId);
-        Post post = postRepo.findByPostId(postId);
-        if (user != null && post != null) {
-            user.getLikedPosts().add(post);
-            userRepo.save(user);
-        }
-    }
-    // delete like for a post
-    public void unlikePost(Integer userId, Integer postId) {
-        User user = userRepo.findUserByUserId(userId);
-        Post post = postRepo.findByPostId(postId);
-        if (user != null && post != null) {
-            user.getLikedPosts().remove(post);
-            userRepo.save(user);
-        }
-    }
-
 }

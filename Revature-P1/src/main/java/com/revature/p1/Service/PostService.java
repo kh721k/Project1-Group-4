@@ -94,12 +94,6 @@ public class PostService {
         return sharePost;
     }
 
-    // get post likes (usersWhoLikeThisPost)
-    public List<User> getPostLikes(Integer postId) {
-      Post post = postRepo.findByPostId(postId);
-      return post.getUsersWhoLikeThisPost();
-    }
-
     // get post comments
     public List<Comment> getCommentsByPost(Integer postId) {
         Post post = postRepo.findByPostId(postId);
