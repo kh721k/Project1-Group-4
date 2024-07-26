@@ -17,17 +17,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final JwtTokenService tokenService;
+    private final AuthDto authDto;
 
     @Autowired
-    private JwtTokenService tokenService;
-
-    @Autowired
-    private AuthDto authDto;
+    public UserController(UserService userService, JwtTokenService tokenService, AuthDto authDto) {
+        this.userService = userService;
+        this.tokenService = tokenService;
+        this.authDto = authDto;
+    }
 
     @GetMapping("/user/{username}")
     public User userByUsername(@PathVariable String username){
@@ -77,8 +79,8 @@ public class UserController {
         }
         else{
             User temp = userService.getUser(user.getUsername());
-            String hashedPassword = this.userService.getUser(authDto.getUsername()).getPassword();
-            BCrypt.Result result = BCrypt.verifyer().verify(authDto.getPassword().toCharArray(), hashedPassword);
+            String hashedPassword = this.userService.getUser(user.getUsername()).getPassword();
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getPassword().toCharArray(), hashedPassword);
             if(result.verified){
                 Map<String, String> claimsMap = new HashMap<>();
                 claimsMap.put("username", temp.getUsername());

@@ -16,11 +16,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class UserService {
 
-    @Autowired
     private UserRepository uRepo;
 
+    @Autowired
+    public UserService(UserRepository uRepo) {
+        this.uRepo = uRepo;
+    }
+
     //CRUD
-    //TODO : login
     public User createUser(User user){
         user.setPassword(BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray()));
         return uRepo.save(user);
@@ -38,12 +41,13 @@ public class UserService {
         return uRepo.updateUser(userId);
     }
 
-    public User getUser(int userId) {
+    /*public User getUser(int userId) {
         return uRepo.findUserByUserId(userId);
-    }
+    }*/
 
     public void deleteUser(Integer userId){
         uRepo.delUser(userId);
     }
 
+    
 }

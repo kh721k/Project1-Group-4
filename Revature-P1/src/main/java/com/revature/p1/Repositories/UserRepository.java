@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.revature.p1.Models.*;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     // https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
@@ -16,7 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User registration(User user);
 
     @Query("SELECT * FROM users WHERE user_id = ?1")
-
     User findUserByUserId(Integer userId);
 
 
@@ -30,5 +31,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("DELETE FROM users WHERE user_id = ?1")
     void delUser(Integer userId);
+
+    @Query("SELECT u FROM User u JOIN u.following f WHERE f.userId = ?1")
+    List<User> findFollowersByUserId(Integer userId);
 
 }
