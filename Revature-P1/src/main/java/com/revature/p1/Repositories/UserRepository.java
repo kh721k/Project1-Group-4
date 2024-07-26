@@ -17,9 +17,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("INSERT INTO users (fname, lname, email, bio, username, pwd) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
     User registration(User user);
 
+    // *** findById()
     @Query("SELECT * FROM users WHERE user_id = ?1")
     User findUserByUserId(Integer userId);
-
 
     @Query("SELECT * FROM users WHERE username = ?1")
     User findUserByUsername(String username);
@@ -32,7 +32,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("DELETE FROM users WHERE user_id = ?1")
     void delUser(Integer userId);
 
-    @Query("SELECT u FROM User u JOIN u.following f WHERE f.userId = ?1")
+    // Native SQL Query
+    @Query(value = "SELECT * FROM users u JOIN follower_junction f ON u.user_id = f.follower_id WHERE f.following_id = ?1", nativeQuery = true)
     List<User> findFollowersByUserId(Integer userId);
+
+    // SELECT * FROM users u
+    // JOIN follower_junction f
+    // ON u.user_id = f.follower_id
+    // WHERE f.following_id = ?1
 
 }

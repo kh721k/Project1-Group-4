@@ -24,10 +24,6 @@ buildNumber.properties
 gradle.xml
 .idea/libraries/**/*.xml
 **/.idea/workspace.xml
-
-.idea/
-*.properties
-
 # Compiled class file
 *.class
 
@@ -75,4 +71,3 @@ gradle.xml
 
 *.properties
 *.iml
-
