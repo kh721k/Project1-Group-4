@@ -18,8 +18,8 @@ import java.util.List;
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class PostService {
-    private PostRepository postRepo;
-    private UserRepository userRepo;
+    private final PostRepository postRepo;
+    private final UserRepository userRepo;
   
   @Autowired
   public PostService(PostRepository postRepository, UserRepository userRepository) {
@@ -84,7 +84,7 @@ public class PostService {
         Post sharePost = new Post();
 
         sharePost.setContent(originalPost.getContent());
-        sharePost.setUser(user);
+        sharePost.setAuthor(user);
         sharePost.setShares(0);
 
         originalPost.setShares(originalPost.getShares() + 1);

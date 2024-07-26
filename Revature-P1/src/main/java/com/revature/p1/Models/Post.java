@@ -16,9 +16,6 @@ public class Post {
     private String content;
     private Integer shares;
 
-//    @Column(name = "timestamp")
-//    private Date timestamp;
-
     @ManyToOne
     @JoinColumn
     @JsonBackReference

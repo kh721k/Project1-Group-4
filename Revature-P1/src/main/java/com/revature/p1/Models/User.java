@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 
 
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity(name = "users")
 public class User {
