@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
@@ -37,15 +36,15 @@ public class PostService {
     }
 
     public Post getPostByPostId(int postId){
-        return postRepo.findByPostId(postId);
+        return postRepo.findPostByPostId(postId);
     }
 
     public List<Post> getPostsByUser(int userId){
-        return postRepo.findByUserId(userId);
+        return postRepo.findPostByUserId(userId);
     }
 
     public Post editPost(int postId, Post post){
-        Post currPost = postRepo.findByPostId(postId);
+        Post currPost = postRepo.findPostByPostId(postId);
         if(currPost == null){
             System.out.println("Post doesn't exist.");
             throw new PostNotFoundException("Post doesn't exist.");
@@ -57,7 +56,7 @@ public class PostService {
     }
 
     public void deletePost(int postId){
-        Post currPost = postRepo.findByPostId(postId);
+        Post currPost = postRepo.findPostByPostId(postId);
         if(currPost == null){
             System.out.println("Post doesn't exist.");
             throw new RuntimeException("Post doesn't exist.");
@@ -68,7 +67,7 @@ public class PostService {
     }
 
     public Post sharePost(int postId, int userId){
-        Post originalPost = postRepo.findByPostId(postId);
+        Post originalPost = postRepo.findPostByPostId(postId);
         if(originalPost == null){
             System.out.println("Original post does not exist.");
             throw new RuntimeException("Original post does not exist.");
@@ -96,7 +95,7 @@ public class PostService {
 
     // get post comments
     public List<Comment> getCommentsByPost(Integer postId) {
-        Post post = postRepo.findByPostId(postId);
+        Post post = postRepo.findPostByPostId(postId);
         return post.getComments();
     }
 

@@ -14,22 +14,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     //TODO :login
     //use repo.save
-    @Query("INSERT INTO users (fname, lname, email, bio, username, pwd) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
+    @Query(value = "INSERT INTO users (fname, lname, email, bio, username, pwd) VALUES (?1, ?2, ?3, ?4, ?5, ?6)", nativeQuery = true)
     User registration(User user);
 
     // *** findById()
-    @Query("SELECT * FROM users WHERE user_id = ?1")
+    @Query(value = "SELECT * FROM users WHERE user_id = ?1", nativeQuery = true)
     User findUserByUserId(Integer userId);
 
-    @Query("SELECT * FROM users WHERE username = ?1")
+    @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
     User findUserByUsername(String username);
 
     //use repo.save
-    @Query("UPDATE users SET fname = ?1 , lname = ?2 , email = ?3, bio = ?4 , username = ?5 , password = ?6")
+    @Query(value = "UPDATE users SET fname = ?1 , lname = ?2 , email = ?3, bio = ?4 , username = ?5 , password = ?6", nativeQuery = true)
 
     User updateUser(Integer userId);
 
-    @Query("DELETE FROM users WHERE user_id = ?1")
+    @Query(value = "DELETE FROM users WHERE user_id = ?1", nativeQuery = true)
     void delUser(Integer userId);
 
     // Native SQL Query

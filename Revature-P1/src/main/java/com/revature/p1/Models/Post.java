@@ -17,7 +17,7 @@ public class Post {
     private Integer shares;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="userId")
     @JsonBackReference
     private User author;
 
