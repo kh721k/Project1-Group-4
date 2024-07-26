@@ -20,26 +20,35 @@ public class Post {
 //    private Date timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     @JsonBackReference
-    private User user;
+    private User author;
 
     @OneToMany(mappedBy = "post")
     @JsonManagedReference
-    List<Comment> comments;
+    private List<Comment> comments;
 
-    @OneToMany(mappedBy = "post")
-    @JsonManagedReference
-    List<Like> likes;
+    @ManyToMany
+    @JsonBackReference
+    @JoinTable
+    private List<User> usersWhoLikeThisPost;
 
     public Post() {
     }
 
-    public Post(Integer postId, String content, Integer shares, User user) {
+    public Post(String content, Integer shares, User author) {
+        this.content = content;
+        this.shares = shares;
+        this.author = author;
+    }
+
+    public Post(Integer postId, String content, Integer shares, User author, List<Comment> comments, List<User> usersWhoLikeThisPost) {
         this.postId = postId;
         this.content = content;
         this.shares = shares;
-        this.user = user;
+        this.author = author;
+        this.comments = comments;
+        this.usersWhoLikeThisPost = usersWhoLikeThisPost;
     }
 
     public Integer getPostId() {
@@ -66,12 +75,12 @@ public class Post {
         this.shares = shares;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public List<Comment> getComments() {
@@ -82,11 +91,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public List<Like> getLikes() {
-        return likes;
+    public List<User> getUsersWhoLikeThisPost() {
+        return usersWhoLikeThisPost;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setUsersWhoLikeThisPost(List<User> usersWhoLikeThisPost) {
+        this.usersWhoLikeThisPost = usersWhoLikeThisPost;
     }
 }

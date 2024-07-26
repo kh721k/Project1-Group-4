@@ -40,11 +40,11 @@ public class User {
     // users liking posts & comments
     @ManyToMany(mappedBy = "usersWhoLikeThisPost")
     @JsonManagedReference
-    private List<Like> likedPosts;
+    private List<Post> likedPosts;
 
     @ManyToMany(mappedBy = "usersWhoLikeThisComment")
     @JsonManagedReference
-    private List<Like> likedComments;
+    private List<Comment> likedComments;
 
     // users following users
     @Column(name = "user_following")
@@ -55,27 +55,9 @@ public class User {
             joinColumns = @JoinColumn(name = "follower_id"),
             inverseJoinColumns = @JoinColumn(name = "following_id")
     )
-
-  
-    @OneToMany(mappedBy = "follower")
-    @JsonManagedReference
-    private List<Follow> following;
-
-    @OneToMany(mappedBy = "following")
-    @JsonManagedReference
-    private List<Follow> followers;
+    private List<User> following; // our user following many other users
 
     public User() {
-    }
-
-    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password) {
-        this.userId = userId;
-        this.fname = fname;
-        this.lname = lname;
-        this.email = email;
-        this.bio = bio;
-        this.username = username;
-        this.password = password;
     }
 
     public User(String fname, String lname, String email, String bio, String username, String password) {
@@ -85,6 +67,21 @@ public class User {
         this.bio = bio;
         this.username = username;
         this.password = password;
+    }
+
+    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password, List<Post> posts, List<Comment> comments, List<Post> likedPosts, List<Comment> likedComments, List<User> following) {
+        this.userId = userId;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.bio = bio;
+        this.username = username;
+        this.password = password;
+        this.posts = posts;
+        this.comments = comments;
+        this.likedPosts = likedPosts;
+        this.likedComments = likedComments;
+        this.following = following;
     }
 
     public Integer getUserId() {
@@ -127,11 +124,11 @@ public class User {
         this.bio = bio;
     }
 
-    public String getUsername() {
+    public @Length(min = 6, max = 20) @Pattern(regexp = "^[A-Za-z0-9]{6,20}$") String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(@Length(min = 6, max = 20) @Pattern(regexp = "^[A-Za-z0-9]{6,20}$") String username) {
         this.username = username;
     }
 
@@ -159,27 +156,27 @@ public class User {
         this.comments = comments;
     }
 
-    public List<Like> getLikes() {
-        return likes;
+    public List<Post> getLikedPosts() {
+        return likedPosts;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setLikedPosts(List<Post> likedPosts) {
+        this.likedPosts = likedPosts;
     }
 
-    public List<Follow> getFollowing() {
+    public List<Comment> getLikedComments() {
+        return likedComments;
+    }
+
+    public void setLikedComments(List<Comment> likedComments) {
+        this.likedComments = likedComments;
+    }
+
+    public List<User> getFollowing() {
         return following;
     }
 
-    public void setFollowing(List<Follow> following) {
+    public void setFollowing(List<User> following) {
         this.following = following;
-    }
-
-    public List<Follow> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(List<Follow> followers) {
-        this.followers = followers;
     }
 }
