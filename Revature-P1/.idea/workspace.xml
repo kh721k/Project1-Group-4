@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b769da26-deaa-4171-964a-0486badf0501" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/p1/Controllers/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/p1/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/p1/Controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/p1/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/p1/Repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/p1/Service/JwtTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/p1/Service/JwtTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/p1/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/p1/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/revature/p1/RevatureSocialNetworkingAppApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/revature/p1/RevatureSocialNetworkingAppApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

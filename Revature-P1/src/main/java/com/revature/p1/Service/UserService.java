@@ -29,8 +29,8 @@ public class UserService {
         return uRepo.save(user);
     }
 
-    public Optional<User> getUser(int userID) {
-        return uRepo.findById(userID);
+    public User getUser(int userID) {
+        return uRepo.findUserByUserId(userID);
     }
 
     public User getUser(String username){
