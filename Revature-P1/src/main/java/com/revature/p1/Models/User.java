@@ -1,5 +1,6 @@
 package com.revature.p1.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -27,17 +28,34 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    // users writing posts & comments
+    @OneToMany(mappedBy = "author")
     @JsonManagedReference
-    List<Post> posts;
+    private List<Post> posts;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     @JsonManagedReference
-    List<Comment> comments;
+    private List<Comment> comments;
 
-    @OneToMany(mappedBy = "user")
+    // users liking posts & comments
+    @ManyToMany(mappedBy = "usersWhoLikeThisPost")
     @JsonManagedReference
-    List<Like> likes;
+    private List<Like> likedPosts;
+
+    @ManyToMany(mappedBy = "usersWhoLikeThisComment")
+    @JsonManagedReference
+    private List<Like> likedComments;
+
+    // users following users
+    @Column(name = "user_following")
+    @ManyToMany
+    @JsonBackReference
+    @JoinTable(
+            name = "follower_junction",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+
   
     @OneToMany(mappedBy = "follower")
     @JsonManagedReference
