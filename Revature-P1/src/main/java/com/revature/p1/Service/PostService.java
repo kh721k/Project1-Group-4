@@ -44,15 +44,15 @@ public class PostService {
         return postRepo.findByUserId(userId);
     }
 
-    public void editPost(Post post){
-        Post currPost = postRepo.findByPostId(post.getPostId());
+    public Post editPost(int postId, Post post){
+        Post currPost = postRepo.findByPostId(postId);
         if(currPost == null){
             System.out.println("Post doesn't exist.");
             throw new PostNotFoundException("Post doesn't exist.");
         }
         else{
             currPost.setContent(post.getContent());
-            postRepo.save(currPost);
+            return postRepo.save(currPost);
         }
     }
 
