@@ -31,23 +31,23 @@ public class UserController {
 //        this.authDto = authDto;
     }
 
-    @GetMapping("/user/")
-    public User userByUsername(@RequestParam(value = "username") @PathVariable String username) {
+    @GetMapping("/user")
+    public User userByUsername(@RequestParam(value = "username") String username) {
         return userService.getUser(username);
     }
 
     @GetMapping("/user/{userId}")
-    public User userById(@PathVariable Integer uid) {
+    public User userById(@PathVariable("userId") Integer uid) {
         return userService.getUser(uid);
     }
 
     @PutMapping("/user/{userId}")
-    public User updateUser(@PathVariable Integer uid) {
+    public User updateUser(@PathVariable("userId") Integer uid) {
         return userService.updateUser(uid);
     }
 
     @DeleteMapping("/user/{userId}")
-    public void delUser(@PathVariable Integer uid) {
+    public void delUser(@PathVariable("userId") Integer uid) {
         userService.deleteUser(uid);
     }
 

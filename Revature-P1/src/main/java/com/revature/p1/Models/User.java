@@ -1,9 +1,6 @@
 package com.revature.p1.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
@@ -12,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 @Entity(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +37,9 @@ public class User {
 
     // users liking posts & comments
     @ManyToMany(mappedBy = "usersWhoLikeThisPost")
-    @JsonManagedReference("postsLiked")
     private List<Post> likedPosts;
 
-    // FIXME: Something is wrong
     @ManyToMany(mappedBy = "usersWhoLikeThisComment")
-    @JsonManagedReference("commentsLiked")
     private List<Comment> likedComments;
 
     // users following users
@@ -70,20 +65,20 @@ public class User {
         this.password = password;
     }
 
-//    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password, List<Post> posts, List<Comment> comments, List<Post> likedPosts, List<Comment> likedComments, List<User> following) {
-//        this.userId = userId;
-//        this.fname = fname;
-//        this.lname = lname;
-//        this.email = email;
-//        this.bio = bio;
-//        this.username = username;
-//        this.password = password;
-//        this.posts = posts;
-//        this.comments = comments;
-//        this.likedPosts = likedPosts;
-//        this.likedComments = likedComments;
-//        this.following = following;
-//    }
+    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password, List<Post> posts, List<Comment> comments, List<Post> likedPosts, List<Comment> likedComments, List<User> following) {
+        this.userId = userId;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.bio = bio;
+        this.username = username;
+        this.password = password;
+        this.posts = posts;
+        this.comments = comments;
+        this.likedPosts = likedPosts;
+        this.likedComments = likedComments;
+        this.following = following;
+    }
 
     public Integer getUserId() {
         return userId;

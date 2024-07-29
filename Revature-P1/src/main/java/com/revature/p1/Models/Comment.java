@@ -1,6 +1,7 @@
 package com.revature.p1.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -33,8 +34,6 @@ public class Comment {
     Timestamp time;
 
     @ManyToMany
-    @JsonBackReference("commentsLiked")
-    @JoinTable
     private List<User> usersWhoLikeThisComment;
 
     public Comment() {

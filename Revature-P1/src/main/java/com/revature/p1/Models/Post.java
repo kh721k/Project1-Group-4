@@ -26,8 +26,6 @@ public class Post {
     private List<Comment> comments;
 
     @ManyToMany
-    @JsonBackReference("postsLiked")
-    @JoinTable
     private List<User> usersWhoLikeThisPost;
 
     public Post() {
