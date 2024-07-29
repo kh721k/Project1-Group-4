@@ -1,19 +1,17 @@
 package com.revature.p1.Service;
 
 
-import com.revature.p1.Models.Post;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.revature.p1.Models.User;
 import com.revature.p1.Repositories.PostRepository;
 import com.revature.p1.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
@@ -30,7 +28,7 @@ public class UserService {
 
     //CRUD
     //TODO : login
-    public User createUser(User user){
+    public User createUser(User user) {
         user.setPassword(BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray()));
         return userRepo.save(user);
     }
@@ -39,11 +37,11 @@ public class UserService {
 //        return userRepo.findById(userID);
 //    }
 
-    public User getUser(String username){
-        return userRepo.findByUsername(username);
+    public User getUser(String username) {
+        return userRepo.findUserByUsername(username);
     }
 
-    public User updateUser(Integer userId){
+    public User updateUser(Integer userId) {
         return userRepo.updateUser(userId);
     }
 
@@ -51,7 +49,7 @@ public class UserService {
         return userRepo.findUserByUserId(userId);
     }
 
-    public void deleteUser(Integer userId){
+    public void deleteUser(Integer userId) {
         userRepo.delUser(userId);
     }
 
@@ -75,6 +73,7 @@ public class UserService {
             userRepo.save(follower);
         }
     }
+
     // delete follow
     public void unfollowUser(Integer followerId, Integer followingId) {
         User follower = userRepo.findUserByUserId(followerId);
