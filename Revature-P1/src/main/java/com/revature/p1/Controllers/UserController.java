@@ -1,7 +1,6 @@
 package com.revature.p1.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.p1.Exceptions.InvalidLogin;
 import com.revature.p1.Models.User;
 import com.revature.p1.Service.JwtTokenService;
