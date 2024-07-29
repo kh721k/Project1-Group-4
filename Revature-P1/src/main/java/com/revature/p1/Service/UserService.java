@@ -40,7 +40,7 @@ public class UserService {
 //    }
 
     public User getUser(String username){
-        return userRepo.findByUsername(username);
+        return userRepo.findUserByUsername(username);
     }
 
     public User updateUser(Integer userId){

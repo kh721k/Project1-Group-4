@@ -18,15 +18,15 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name="userId")
-    @JsonBackReference
+    @JsonBackReference("authorOfPosts")
     private User author;
 
     @OneToMany(mappedBy = "post")
-    @JsonManagedReference
+    @JsonManagedReference("postComments")
     private List<Comment> comments;
 
     @ManyToMany
-    @JsonBackReference
+    @JsonBackReference("postsLiked")
     @JoinTable
     private List<User> usersWhoLikeThisPost;
 

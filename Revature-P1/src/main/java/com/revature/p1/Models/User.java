@@ -1,8 +1,9 @@
 package com.revature.p1.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
@@ -29,26 +30,27 @@ public class User {
 
     // users writing posts & comments
     @OneToMany(mappedBy = "author")
-    @JsonManagedReference
+    @JsonManagedReference("authorOfPosts")
     private List<Post> posts;
 
     @OneToMany(mappedBy = "author")
-    @JsonManagedReference
+    @JsonManagedReference("authorOfComments")
     private List<Comment> comments;
 
     // users liking posts & comments
     @ManyToMany(mappedBy = "usersWhoLikeThisPost")
-    @JsonManagedReference
+    @JsonManagedReference("postsLiked")
     private List<Post> likedPosts;
 
+    // FIXME: Something is wrong
     @ManyToMany(mappedBy = "usersWhoLikeThisComment")
-    @JsonManagedReference
+    @JsonManagedReference("commentsLiked")
     private List<Comment> likedComments;
 
     // users following users
     @Column(name = "user_following")
     @ManyToMany
-    @JsonBackReference
+    @JsonBackReference("back")
     @JoinTable(
             name = "follower_junction",
             joinColumns = @JoinColumn(name = "follower_id"),
@@ -68,20 +70,20 @@ public class User {
         this.password = password;
     }
 
-    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password, List<Post> posts, List<Comment> comments, List<Post> likedPosts, List<Comment> likedComments, List<User> following) {
-        this.userId = userId;
-        this.fname = fname;
-        this.lname = lname;
-        this.email = email;
-        this.bio = bio;
-        this.username = username;
-        this.password = password;
-        this.posts = posts;
-        this.comments = comments;
-        this.likedPosts = likedPosts;
-        this.likedComments = likedComments;
-        this.following = following;
-    }
+//    public User(Integer userId, String fname, String lname, String email, String bio, String username, String password, List<Post> posts, List<Comment> comments, List<Post> likedPosts, List<Comment> likedComments, List<User> following) {
+//        this.userId = userId;
+//        this.fname = fname;
+//        this.lname = lname;
+//        this.email = email;
+//        this.bio = bio;
+//        this.username = username;
+//        this.password = password;
+//        this.posts = posts;
+//        this.comments = comments;
+//        this.likedPosts = likedPosts;
+//        this.likedComments = likedComments;
+//        this.following = following;
+//    }
 
     public Integer getUserId() {
         return userId;
