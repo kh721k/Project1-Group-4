@@ -35,7 +35,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT * FROM users u JOIN follower_junction f ON u.user_id = f.follower_id WHERE f.following_id = ?1", nativeQuery = true)
     List<User> findFollowersByUserId(Integer userId);
 
-    //Aakaash
+        //kyle
     // SELECT * FROM users u
     // JOIN follower_junction f
     // ON u.user_id = f.follower_id
