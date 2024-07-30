@@ -1,0 +1,31 @@
+.nav-bar {
+    background-color: rgb(0, 247, 255);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bar {
+    display: flex;
+}
+
+.bar button {
+    margin: 0px 5px 0px 5px;
+    padding: 10px;
+    border: black solid 1px;
+    border-radius: 5px;
+    background-color: pink;
+}
+
+.profile-dropdown {
+    position: absolute;
+    background-color: #fff;
+    /* border: #da3743 solid 1px; */
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px 1px #ecb5b9;
+    margin-left: -107px;
+    /* margin-top: 1px; */
+    padding: 10px;
+  }
+
