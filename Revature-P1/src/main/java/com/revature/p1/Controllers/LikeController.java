@@ -19,22 +19,22 @@ public class LikeController {
     }
 
     @GetMapping("/users/{userId}/likedPosts")
-    public List<Post> getUsersLikedPosts(@PathVariable Integer userId) {
+    public List<Post> getUsersLikedPosts(@PathVariable("userId") Integer userId) {
         return likeService.getPostsLikedByUser(userId);
     }
 
     @GetMapping("/posts/{postId}/likes")
-    public List<User> getUserLikesForPost(@PathVariable Integer postId) {
+    public List<User> getUserLikesForPost(@PathVariable("postId") Integer postId) {
         return likeService.getPostLikes(postId);
     }
 
     @PostMapping("/posts/{postId}/{userId}")
-    public void likePost(@PathVariable Integer postId, @PathVariable Integer userId){
+    public void likePost(@PathVariable("postId") Integer postId, @PathVariable("userId") Integer userId){
         likeService.likePost(userId, postId);
     }
 
     @DeleteMapping("/posts/{postId}/{userId}")
-    public void unlikePost(@PathVariable Integer postId, @PathVariable Integer userId){
+    public void unlikePost(@PathVariable("postId") Integer postId, @PathVariable("userId") Integer userId){
         likeService.unlikePost(userId, postId);
     }
 
