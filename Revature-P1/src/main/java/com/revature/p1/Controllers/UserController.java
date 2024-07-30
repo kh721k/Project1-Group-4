@@ -89,28 +89,23 @@ public class UserController {
         return ResponseEntity.status(200).body("Successful Login!");
     }
 
-    // TODO: TEST
-    // follower handlers
     @GetMapping("/user/{userId}/followers")
-    public List<User> getUserFollowers(@PathVariable Integer uid) {
+    public List<User> getUserFollowers(@PathVariable("userId") Integer uid) {
         return userService.getFollowers(uid);
     }
 
-    // TODO: TEST
     @GetMapping("/user/{userId}/following")
-    public List<User> getUserFollowing(@PathVariable Integer uid) {
+    public List<User> getUserFollowing(@PathVariable("userId") Integer uid) {
         return userService.getFollowing(uid);
     }
 
-    // TODO: TEST
     @PostMapping("/user/{userId}/following/{followingId}")
-    public void followUser(@PathVariable Integer userId, @PathVariable Integer followingId) {
+    public void followUser(@PathVariable("userId") Integer userId, @PathVariable("followingId") Integer followingId) {
         userService.followUser(userId, followingId);
     }
 
-    // TODO: TEST
     @DeleteMapping("/user/{userId}/following/{followingId}")
-    public void unfollowUser(@PathVariable Integer userId, @PathVariable Integer followingId) {
+    public void unfollowUser(@PathVariable("userId") Integer userId, @PathVariable("followingId") Integer followingId) {
         userService.unfollowUser(userId, followingId);
     }
 

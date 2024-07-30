@@ -58,6 +58,10 @@ public class UserService {
     public void followUser(Integer followerId, Integer followingId) {
         User follower = userRepo.findUserByUserId(followerId);
         User following = userRepo.findUserByUserId(followingId);
+        if (follower.getFollowing().contains(following)) {
+            return;
+        }
+
         if (follower != null && following != null) {
             follower.getFollowing().add(following);
             userRepo.save(follower);
