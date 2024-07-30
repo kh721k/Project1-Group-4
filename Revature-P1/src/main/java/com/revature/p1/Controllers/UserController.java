@@ -8,6 +8,7 @@ import com.revature.p1.Service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,18 +41,19 @@ public class UserController {
         return userService.getUser(uid);
     }
 
-    @PutMapping("/user/{userId}")
-    public User updateUser(@PathVariable("userId") Integer uid) {
-        return userService.updateUser(uid);
+    @PutMapping("/user")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUser(@RequestBody User user) {
+        userService.updateUser(user);
     }
 
-    // TODO: TEST
     @DeleteMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.OK)
     public void delUser(@PathVariable("userId") Integer uid) {
         userService.deleteUser(uid);
     }
 
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/register")
     public ResponseEntity<String> registerNewUser(@RequestBody User user, HttpServletResponse httpServletResponse) {
         if (userService.getUser(user.getUsername()) != null) {
             return ResponseEntity.status(409).body("Username Taken");
@@ -66,7 +68,6 @@ public class UserController {
         return ResponseEntity.status(200).body("Successful Registration!");
     }
 
-    // TODO: TEST
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user, HttpServletResponse httpServletResponse) {
         if (userService.getUser(user.getUsername()) == null) {

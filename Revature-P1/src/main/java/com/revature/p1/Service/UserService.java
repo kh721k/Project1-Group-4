@@ -25,24 +25,17 @@ public class UserService {
         this.postRepo = postRepo;
     }
 
-
-    //CRUD
-    //TODO : login
     public User createUser(User user) {
         user.setPassword(BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray()));
         return userRepo.save(user);
     }
 
-//    public Optional<User> getUser(Integer userID) {
-//        return userRepo.findById(userID);
-//    }
-
     public User getUser(String username) {
         return userRepo.findUserByUsername(username);
     }
 
-    public User updateUser(Integer userId) {
-        return userRepo.updateUser(userId);
+    public void updateUser(User user) {
+        userRepo.updateUser(user.getUserId(), user.getFname(), user.getLname(), user.getEmail(), user.getBio(), user.getUsername(), user.getPassword());
     }
 
     public User getUser(Integer userId) {
@@ -53,18 +46,15 @@ public class UserService {
         userRepo.delUser(userId);
     }
 
-    // get followers
     public List<User> getFollowers(Integer userId) {
         return userRepo.findFollowersByUserId(userId);
     }
 
-    // get following
     public List<User> getFollowing(Integer userId) {
         User user = userRepo.findUserByUserId(userId);
         return user.getFollowing();
     }
 
-    // create follow
     public void followUser(Integer followerId, Integer followingId) {
         User follower = userRepo.findUserByUserId(followerId);
         User following = userRepo.findUserByUserId(followingId);
@@ -74,7 +64,6 @@ public class UserService {
         }
     }
 
-    // delete follow
     public void unfollowUser(Integer followerId, Integer followingId) {
         User follower = userRepo.findUserByUserId(followerId);
         User following = userRepo.findUserByUserId(followingId);
@@ -83,5 +72,4 @@ public class UserService {
             userRepo.save(follower);
         }
     }
-
 }
