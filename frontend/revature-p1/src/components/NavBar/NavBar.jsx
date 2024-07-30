@@ -20,7 +20,7 @@ function NavBar() {
                 </div>
                 <div className="bar">
                     <button>
-                        <NavLink to="/profile"> Profile </NavLink>
+                        <NavLink to="/users/:username"> Profile </NavLink>
                     </button>
                     <button>
                         <NavLink to="/create-post"> + </NavLink>

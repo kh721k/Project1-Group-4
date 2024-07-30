@@ -1,0 +1,25 @@
+#profile-img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+.profile-info-container {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding-left: 30px;
+}
+
+.profile-info span {
+    margin: 0px 10px 0px 10px;
+}
+
+.profile-username, .profile-info, .profile-name {
+    /* display: flex; */
+}
