@@ -45,6 +45,7 @@ public class UserController {
         return userService.updateUser(uid);
     }
 
+    // TODO: TEST
     @DeleteMapping("/user/{userId}")
     public void delUser(@PathVariable("userId") Integer uid) {
         userService.deleteUser(uid);
@@ -53,63 +54,60 @@ public class UserController {
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerNewUser(@RequestBody User user, HttpServletResponse httpServletResponse) {
         if (userService.getUser(user.getUsername()) != null) {
-            throw new InvalidLogin("Username taken");
-        } else {
-            User temp = userService.createUser(user);
-            Map<String, String> claimsMap = new HashMap<>();
-            claimsMap.put("username", temp.getUsername());
-            claimsMap.put("userID", String.valueOf(temp.getUserId()));
-            Cookie cookie = new Cookie("Authentication", this.tokenService.generateToken(claimsMap));
-            httpServletResponse.addCookie(cookie);
-            try {
-                return ResponseEntity.status(200).body("Successful Registration!");
-            } catch (Exception e) {
-                return ResponseEntity.status(500).body("Generic server error.");
-            }
+            return ResponseEntity.status(409).body("Username Taken");
         }
+
+        User temp = userService.createUser(user);
+        Map<String, String> claimsMap = new HashMap<>();
+        claimsMap.put("username", temp.getUsername());
+        claimsMap.put("userID", String.valueOf(temp.getUserId()));
+        Cookie cookie = new Cookie("Authentication", this.tokenService.generateToken(claimsMap));
+        httpServletResponse.addCookie(cookie);
+        return ResponseEntity.status(200).body("Successful Registration!");
     }
 
+    // TODO: TEST
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user, HttpServletResponse httpServletResponse) {
         if (userService.getUser(user.getUsername()) == null) {
-            throw new InvalidLogin("Incorrect username");
-        } else {
-            User temp = userService.getUser(user.getUsername());
-            String hashedPassword = this.userService.getUser(user.getUsername()).getPassword();
-            BCrypt.Result result = BCrypt.verifyer().verify(user.getPassword().toCharArray(), hashedPassword);
-            if (result.verified) {
-                Map<String, String> claimsMap = new HashMap<>();
-                claimsMap.put("username", temp.getUsername());
-                claimsMap.put("userID", String.valueOf(temp.getUserId()));
-                Cookie cookie = new Cookie("Authentication", this.tokenService.generateToken(claimsMap));
-                httpServletResponse.addCookie(cookie);
-                try {
-                    return ResponseEntity.status(200).body("Successful Login!");
-                } catch (Exception e) {
-                    return ResponseEntity.status(500).body("Generic server error.");
-                }
-            } else {
-                throw new InvalidLogin("Incorrect password");
-            }
+            return ResponseEntity.status(401).body("Invalid username");
         }
+
+        User temp = userService.getUser(user.getUsername());
+        String hashedPassword = this.userService.getUser(user.getUsername()).getPassword();
+        BCrypt.Result result = BCrypt.verifyer().verify(user.getPassword().toCharArray(), hashedPassword);
+        if (!result.verified) {
+            return ResponseEntity.status(401).body("Invalid password");
+        }
+
+        Map<String, String> claimsMap = new HashMap<>();
+        claimsMap.put("username", temp.getUsername());
+        claimsMap.put("userID", String.valueOf(temp.getUserId()));
+        Cookie cookie = new Cookie("Authentication", this.tokenService.generateToken(claimsMap));
+        httpServletResponse.addCookie(cookie);
+        return ResponseEntity.status(200).body("Successful Login!");
     }
 
+    // TODO: TEST
     // follower handlers
     @GetMapping("/user/{userId}/followers")
     public List<User> getUserFollowers(@PathVariable Integer uid) {
         return userService.getFollowers(uid);
     }
 
+    // TODO: TEST
     @GetMapping("/user/{userId}/following")
     public List<User> getUserFollowing(@PathVariable Integer uid) {
         return userService.getFollowing(uid);
     }
 
+    // TODO: TEST
     @PostMapping("/user/{userId}/following/{followingId}")
     public void followUser(@PathVariable Integer userId, @PathVariable Integer followingId) {
         userService.followUser(userId, followingId);
     }
 
+    // TODO: TEST
     @DeleteMapping("/user/{userId}/following/{followingId}")
     public void unfollowUser(@PathVariable Integer userId, @PathVariable Integer followingId) {
         userService.unfollowUser(userId, followingId);
