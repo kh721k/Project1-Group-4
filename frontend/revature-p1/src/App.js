@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Post from './Posts/Post';
 
 function App() {
   return (
