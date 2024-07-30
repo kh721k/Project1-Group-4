@@ -1,107 +1,86 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import React, { FormEvent, useEffect, useState, useRef, useContext} from 'react';
 
-const Login = (props) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [usernameError, setUsernameError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+import 'bootstrap/dist/css/bootstrap.css';
+import AuthContext from "./Context/AuthContext";
+import axios from './api/axios';
+const LOGIN_URL = '/login';
 
-  const navigate = useNavigate()
+const Login = () =>{
+  const userRef = useRef();
+  const errorRef = useRef();
 
-  const onButtonClick = () => {
-    setUsernameError('')
-  setPasswordError('')
+  const [user, setUser] = useState('');
+  const [password, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
 
-  // Check if the user has entered both fields correctly
-  if ('' === username) {
-    setUsernameError('Please enter your username')
-    return
+  const { setAuth } = useContext(AuthContext);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, password])
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(LOGIN_URL,
+          JSON.stringify({ user, password }),
+          {
+              headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
+          }
+      );
+      console.log(JSON.stringify(response?.data));
+      setAuth({ user, password});
+      setUser('');
+      setPwd('');
+  } catch(error){
+    if (!error?.response) {
+      setErrMsg('No Server Response');
+    } else {
+        setErrMsg('Login Failed');
+    }
+    errorRef.current.focus();
   }
-
-  if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(username)) {
-    setUsernameError('Please enter a valid username')
-    return
   }
-
-  if ('' === password) {
-    setPasswordError('Please enter a password')
-    return
-  }
-
-  if (password.length < 7) {
-    setPasswordError('The password must be 8 characters or longer')
-    return
-  }
-  }
-  
-  const checkAccountExists = (callback) => {
-    fetch('http://localhost:3080/check-account', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username }),
-    })
-      .then((r) => r.json())
-      .then((r) => {
-        callback(r?.userExists)
-      })
-  }
-
-  const logIn = () => {
-    fetch('http://localhost:3080/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((r) => r.json())
-      .then((r) => {
-        if ('success' === r.message) {
-          localStorage.setItem('user', JSON.stringify({ username, token: r.token }))
-          props.setLoggedIn(true)
-          props.setEmail(username)
-          navigate('/')
-        } else {
-          window.alert('Wrong email or password')
-        }
-      })
-  }
-
-  return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
+  return(
+    <section>
+      <p ref={errorRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+      <h1>Sign In</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
         <input
-          value={username}
-          placeholder="Enter your email here"
-          onChange={(ev) => setUsername(ev.target.value)}
-          className={'inputBox'}
+          type="text"
+          id="username"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+          required
         />
-        <label className="errorLabel">{usernameError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
-      </div>
-    </div>
+
+        <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={password}
+            required
+          />
+        <button>Sign In</button>
+      </form>
+      <p>
+        Need an Account?<br />
+        <span className="line">
+          {/*put router link here*/}
+          <a href="#">Sign Up</a>
+        </span>
+      </p>
+    </section>
   )
-}
+};
 
 export default Login
-
