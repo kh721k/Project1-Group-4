@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Post from './Posts/Post';
 
 function App() {
   return (
