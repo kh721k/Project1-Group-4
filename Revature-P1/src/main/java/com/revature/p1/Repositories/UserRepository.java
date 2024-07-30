@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     // https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
-    User findByUsername(String username);
 
     //TODO :login
     //use repo.save
@@ -36,7 +35,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT * FROM users u JOIN follower_junction f ON u.user_id = f.follower_id WHERE f.following_id = ?1", nativeQuery = true)
     List<User> findFollowersByUserId(Integer userId);
 
-    // BRITTTANYYYYYYYY
+        //kyle
     // SELECT * FROM users u
     // JOIN follower_junction f
     // ON u.user_id = f.follower_id

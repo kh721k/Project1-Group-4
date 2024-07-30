@@ -1,14 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 
-/*
-Components:
-/login
-/registration
-/profile/{username} (list of posts)
-
-*/
-
 function App() {
   return (
     <div className="App">
