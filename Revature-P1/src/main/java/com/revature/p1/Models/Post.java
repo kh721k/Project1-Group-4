@@ -17,17 +17,15 @@ public class Post {
     private Integer shares;
 
     @ManyToOne
-    @JoinColumn(name="userId")
-    @JsonBackReference
+    @JoinColumn(name = "userId")
+    @JsonBackReference("authorOfPosts")
     private User author;
 
     @OneToMany(mappedBy = "post")
-    @JsonManagedReference
+    @JsonManagedReference("postComments")
     private List<Comment> comments;
 
     @ManyToMany
-    @JsonBackReference
-    @JoinTable
     private List<User> usersWhoLikeThisPost;
 
     public Post() {

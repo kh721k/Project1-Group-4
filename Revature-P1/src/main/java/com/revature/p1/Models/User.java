@@ -1,16 +1,17 @@
 package com.revature.p1.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
-
 
 import java.util.List;
 
 @Entity(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,26 +30,24 @@ public class User {
 
     // users writing posts & comments
     @OneToMany(mappedBy = "author")
-    @JsonManagedReference
+    @JsonManagedReference("authorOfPosts")
     private List<Post> posts;
 
     @OneToMany(mappedBy = "author")
-    @JsonManagedReference
+    @JsonManagedReference("authorOfComments")
     private List<Comment> comments;
 
     // users liking posts & comments
     @ManyToMany(mappedBy = "usersWhoLikeThisPost")
-    @JsonManagedReference
     private List<Post> likedPosts;
 
     @ManyToMany(mappedBy = "usersWhoLikeThisComment")
-    @JsonManagedReference
     private List<Comment> likedComments;
 
     // users following users
     @Column(name = "user_following")
     @ManyToMany
-    @JsonBackReference
+    @JsonBackReference("back")
     @JoinTable(
             name = "follower_junction",
             joinColumns = @JoinColumn(name = "follower_id"),

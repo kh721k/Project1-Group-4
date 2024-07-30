@@ -9,10 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 
-@SpringBootApplication
 @EnableAutoConfiguration
 class RevatureSocialNetworkingAppApplicationTests {
 
-	SpringApplication.run(RevatureSocialNetworkingAppApplicationTests.class, args);
+//	SpringApplication.run(RevatureSocialNetworkingAppApplicationTests.class, args);
 
 }

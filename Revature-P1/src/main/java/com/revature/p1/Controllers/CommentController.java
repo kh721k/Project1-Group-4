@@ -19,7 +19,7 @@ public class CommentController {
 
     @GetMapping("/comment/{comment_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Comment view(@PathVariable String id) {
+    public Comment view(@PathVariable("comment_id") String id) {
         return commentService.get(Integer.valueOf(id));
     }
 }
