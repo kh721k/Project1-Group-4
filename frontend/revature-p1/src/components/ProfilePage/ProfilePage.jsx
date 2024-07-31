@@ -36,7 +36,9 @@ function ProfilePage({user}) {
             </div>
             {/* <PostList user={user}/> */}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default ProfilePage;
