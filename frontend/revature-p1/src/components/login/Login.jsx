@@ -7,19 +7,16 @@ import axios from 'axios';
 const LOGIN_URL = 'http://localhost:8080/login';
 
 const Login = () => {
-  const { useAuth } = useContext(AuthContext);
-  const { login } = useAuth();
-  const userRef = useRef();
-  const errorRef = useRef();
+  // const { useAuth } = useContext(AuthContext);
+  // const { login } = useAuth();
 
   const [user, setUser] = useState('');
   const [password, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, [])
+  // useEffect(() => {
+  //   userRef.current.focus();
+  // }, [])
 
   useEffect(() => {
     setErrMsg('');
@@ -28,40 +25,47 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(LOGIN_URL,
+      const response = await axios.post(
+        LOGIN_URL,
         { username: user, password: password },
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true // allows cookies to be sent/recieved
         }
       );
-      console.log(response?.data);
-      login(response.json);
+      console.log(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data))
+
+      const sessionUser = JSON.parse(localStorage.getItem("user"))
+      console.log("new logged in user = ", sessionUser)
+      // login(response.json);
       //setUser('');
       //setPwd('');
       //above 2 lines can he handled by logout in AuthContext on the scale of the whole project as and when needed
     } catch (error) {
       if (!error?.response) {
         setErrMsg('No Server Response');
+        console.log(error)
       } else {
         setErrMsg('Login Failed');
       }
-      errorRef.current.focus();
+      // errorRef.current.focus();
     }
+    // navigate to home w/ React useNav
   }
+
+
   return (
     <section>
-      <p ref={errorRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+      <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
-          ref={userRef}
           autoComplete="off"
           onChange={(e) => setUser(e.target.value)}
-          value={user}
           required
         />
 
@@ -70,16 +74,15 @@ const Login = () => {
           type="password"
           id="password"
           onChange={(e) => setPwd(e.target.value)}
-          value={password}
           required
         />
-        <button>Sign In</button>
+        <div></div>
+        <button type="submit">Log in</button>
       </form>
       <p>
         Need an Account?<br />
         <span className="line">
-          {/*put router link here*/}
-          <a href="#">Sign Up</a>
+          <a href="/register">Register</a>
         </span>
       </p>
     </section>
