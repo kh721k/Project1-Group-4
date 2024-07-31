@@ -11,12 +11,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         Inside App
-        <NavBar/>
+        <NavBar />
         <Routes>
           {/* <Route path="/" element={<FeedPage/>}></Route> */}
           {/* <Route path="/login" element={<LoginPage/>}></Route> */}
           {/* <Route path="/registration" element={<RegistrationPage/>}></Route> */}
-          <Route path="/users/:username" element={<ProfilePage/>}></Route>
+          <Route path="/users/:username" element={<ProfilePage />}></Route>
           {/* <Route path="/users/:username/posts/:postId" element={<PostPage/>}></Route> */}
           {/* <Route path="/create-post" element={<CreatePost/>}></Route> */}
         </Routes>

@@ -20,6 +20,8 @@
     margin: 0px 10px 0px 10px;
 }
 
-.profile-username, .profile-info, .profile-name {
+.profile-username,
+.profile-info,
+.profile-name {
     /* display: flex; */
 }
