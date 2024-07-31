@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         Inside App
-        <NavBar/>
+        <NavBar />
         <Routes>
           {/* <Route path="/" element={<FeedPage/>}></Route> */}
           {/* <Route path="/login" element={<LoginPage/>}></Route> */}

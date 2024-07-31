@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Post from './Post';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Post from "./Post";
 
 function PostList() {
-
     // TODO: get all posts from specific user
 
     const [posts, setPosts] = useState([])
@@ -20,7 +19,7 @@ function PostList() {
         }
 
     fetchPosts();
-    },[]);
+  }, []);
 
     const handlePostUpdated = (updatedPost) => {
         setPosts((prevPosts) =>
@@ -35,14 +34,13 @@ function PostList() {
     }
 
     return (
-
     <div>
-        {posts.map(post => (
-            <Post key={post.postId} post={post}/>
-        ))}
+      {posts.map((post) => (
+        <Post key={post.postId} post={post} />
+      ))}
     </div>
-
-  )
+  );
 }
 
 export default PostList
+
