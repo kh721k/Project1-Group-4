@@ -17,7 +17,7 @@ function CreatePost() {
     const createPost = async () => {
         const response = await axios.post(
             "http://localhost:8080/post",
-            // TODO: change postId to session cookie
+            // TODO: change author to session cookie
             { postId: null, content: content, shares: 0, author: 1 },
             {
                 headers: { 'Content-Type': 'application/json' },
