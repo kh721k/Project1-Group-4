@@ -3,35 +3,37 @@ import axios from "axios";
 import Post from "./Post";
 
 function PostList() {
-  const [posts, setPosts] = useState([]);
+    // TODO: get all posts from specific user
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.getPosts();
-        setPosts(response.data);
-      } catch (error) {
-        console.log(error);
-        console.error("Error fetching posts:", error);
-      }
-    };
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.getPosts();
+                setPosts(response.data);
+            }catch(error){
+                console.log(error);
+                console.error('Error fetching posts:', error);
+            }
+        }
 
     fetchPosts();
   }, []);
 
-  const handlePostUpdated = (updatedPost) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.postId === updatedPost.postId ? updatedPost : post
-      )
-    );
-  };
+    const handlePostUpdated = (updatedPost) => {
+        setPosts((prevPosts) =>
+            prevPosts.map((post) =>
+                post.postId === updatedPost.postId ? updatedPost : post
+            )
+        );
+    }
 
-  if (!posts.length) {
-    return <div>No posts..</div>;
-  }
+    if(!posts.length){
+        return <div>No posts..</div>
+    }
 
-  return (
+    return (
     <div>
       {posts.map((post) => (
         <Post key={post.postId} post={post} />
@@ -40,4 +42,5 @@ function PostList() {
   );
 }
 
-export default PostList;
+export default PostList
+

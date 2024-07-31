@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 public class PostController {
 
@@ -20,7 +21,6 @@ public class PostController {
         this.postService = postService;
     }
 
-    @CrossOrigin
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.OK)
     public Post createPost(@RequestBody Post post){
