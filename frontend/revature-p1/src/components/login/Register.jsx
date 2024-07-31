@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from "../api/axios";
+import axios from 'axios';
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+// const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
   const userRef = useRef();
@@ -17,20 +16,13 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
 
-  const [userFocus, setUserFocus] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
+  // useEffect(() => {
+  //   setUser(USER_REGEX.test(user));
+  // }, [user]);
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setUser(USER_REGEX.test(user));
-  }, [user]);
-
-  useEffect(() => {
-    setPwd(PWD_REGEX.test(password));
-  }, [password]);
+  // useEffect(() => {
+  //   setPwd(PWD_REGEX.test(password));
+  // }, [password]);
 
   useEffect(() => {
     setErrMsg("");
@@ -38,37 +30,45 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const check1 = USER_REGEX.test(user);
-    const check2 = PWD_REGEX.test(password);
-    if (!check1 || !check2) {
-      setErrMsg("Invalid login information");
-      return;
-    }
+    // const check1 = USER_REGEX.test(user);
+    // const check2 = PWD_REGEX.test(password);
+    // if (!check1 || !check2) {
+    //   setErrMsg("Invalid login information -username needs to be 3-23 characters and password 8-24");
+    //   return;
+    // }
     try {
       const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, password, firstname, lastname, email, bio }),
+        "http://localhost:8080/register",
         {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          username: user,
+          password: password,
+          fname: firstname,
+          lname: lastname,
+          email: email,
+          bio: bio
+        },
+        {
+          headers: { "Content-Type": "application/json" }
         }
       );
-      console.log(JSON.stringify(response?.data));
-      setUser("");
-      setPwd("");
-      setFirstname("");
-      setLastname("");
-      setEmail("");
-      setBio("");
+      console.log(response?.data);
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else {
         setErrMsg("Registration Failed");
       }
-      errorRef.current.focus();
     }
   };
+
+  /*
+        setUser("");
+      setPwd("");
+      setFirstname("");
+      setLastname("");
+      setEmail("");
+      setBio("");
+  */
 
   return (
     <section>
@@ -85,23 +85,16 @@ const Register = () => {
         <input
           type="text"
           id="username"
-          ref={userRef}
           autoComplete="off"
           onChange={(e) => setUser(e.target.value)}
-          value={user}
           required
-          onFocus={() => setUserFocus(true)}
-          onBlur={() => setUserFocus(false)}
         />
         <label htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"
           onChange={(e) => setPwd(e.target.value)}
-          value={password}
           required
-          onFocus={() => setPwdFocus(true)}
-          onBlur={() => setPwdFocus(false)}
         />
         <label htmlFor="firstname">First Name:</label>
         <input
@@ -109,7 +102,6 @@ const Register = () => {
           id="firstname"
           autoComplete="off"
           onChange={(e) => setFirstname(e.target.value)}
-          value={firstname}
           required
         />
         <label htmlFor="lastname">Last Name:</label>
@@ -118,7 +110,6 @@ const Register = () => {
           id="lastname"
           autoComplete="off"
           onChange={(e) => setLastname(e.target.value)}
-          value={lastname}
           required
         />
         <label htmlFor="email">Email Address:</label>
@@ -127,7 +118,6 @@ const Register = () => {
           id="email"
           autoComplete="off"
           onChange={(e) => setEmail(e.target.value)}
-          value={email}
           required
         />
         <label htmlFor="bio">User Bio:</label>
@@ -136,9 +126,10 @@ const Register = () => {
           id="bio"
           autoComplete="off"
           onChange={(e) => setBio(e.target.value)}
-          value={bio}
           required
         />
+        <div></div>
+        <button type="submit">Register</button>
       </form>
     </section>
   );

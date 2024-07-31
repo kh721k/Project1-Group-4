@@ -1,4 +1,8 @@
 import { useEffect, useState, React } from "react";
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+
+
 // import PostList from "../Posts/PostList";
 
 import "./ProfilePage.css";
@@ -8,7 +12,26 @@ TODO:
 Feed page = postlist without being user specific
 */
 
-function ProfilePage({user}) {
+function ProfilePage() {
+    const { username } = useParams();
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        getUser();
+    }, [username]);
+
+    const getUser = async () => {
+        const response = await axios.get(
+            `http://localhost:8080/user?username=${username}`,
+            {withCredentials: true}
+        )
+        if (response.status !== 200) {
+            alert("Couldn't get user!")
+            console.log("Response: ", response)
+        } else {
+            setUser(response.data)
+        }
+    }
 
     // const [followers, getFollowers] = useState([])
     // const [following, getFollowing] = useState([])
@@ -22,23 +45,21 @@ function ProfilePage({user}) {
             </div>
             <div className="profile-info">
                 <div className="profile-username">
-                    <span>bob_of_sponge</span>
+                    <span>{user?.username}</span>
                     <button>Edit profile</button>
                 </div>
                 <div className="profile-numbers">
-                    <span> <b>123</b> posts</span>
+                    <span><b>123</b> posts</span>
                     <span><b>400</b> followers</span>
                     <span><b>899</b> following</span>
                 </div>
                 <div className="profile-name">
-                    <span>Sponge Bob</span>
+                    <span>{user?.fname} {user?.lname}</span>
                 </div>
             </div>
             {/* <PostList user={user}/> */}
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default ProfilePage;
