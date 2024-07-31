@@ -1,67 +1,57 @@
-import React, {
-  FormEvent,
-  useEffect,
-  useState,
-  useRef,
-  useContext,
-} from "react";
+import React, { FormEvent, useEffect, useState, useRef, useContext} from 'react';
 
-import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap/dist/css/bootstrap.css';
 import AuthContext from "./Context/AuthContext";
-import axios from "./api/axios";
-const LOGIN_URL = "/login";
+import axios from './api/axios';
+import { useAuth } from '../Context/AuthContext';
+const LOGIN_URL = '/login';
 
-const Login = () => {
+const Login = () =>{
+  const {login} = useAuth();
   const userRef = useRef();
   const errorRef = useRef();
 
-  const [user, setUser] = useState("");
-  const [password, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+  const [user, setUser] = useState('');
+  const [password, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
 
-  const { setAuth } = useContext(AuthContext);
+  const { useAuth } = useContext(AuthContext);
 
   useEffect(() => {
     userRef.current.focus();
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setErrMsg("");
-  }, [user, password]);
+    setErrMsg('');
+  }, [user, password])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ user, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+      const response = await axios.post(LOGIN_URL,
+          JSON.stringify({ user, password }),
+          {
+              headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
+          }
       );
       console.log(JSON.stringify(response?.data));
-      setAuth({ user, password });
-      setUser("");
-      setPwd("");
-    } catch (error) {
-      if (!error?.response) {
-        setErrMsg("No Server Response");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errorRef.current.focus();
+      login(response.json);
+      //setUser('');
+      //setPwd('');
+      //above 2 lines can he handled by logout in AuthContext on the scale of the whole project as and when needed
+  } catch(error){
+    if (!error?.response) {
+      setErrMsg('No Server Response');
+    } else {
+        setErrMsg('Login Failed');
     }
-  };
-  return (
+    errorRef.current.focus();
+  }
+  }
+  return(
     <section>
-      <p
-        ref={errorRef}
-        className={errMsg ? "errmsg" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </p>
+      <p ref={errorRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
@@ -76,25 +66,24 @@ const Login = () => {
         />
 
         <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={password}
-          required
-        />
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={password}
+            required
+          />
         <button>Sign In</button>
       </form>
       <p>
-        Need an Account?
-        <br />
+        Need an Account?<br />
         <span className="line">
           {/*put router link here*/}
           <a href="#">Sign Up</a>
         </span>
       </p>
     </section>
-  );
+  )
 };
 
-export default Login;
+export default Login
