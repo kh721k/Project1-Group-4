@@ -4,20 +4,24 @@ import axios from 'axios'
 
 
 function CreatePost() {
-    // interface Post { postId: number; content: string; shares: number; author: any }
-    // const [postId, setPostId] = useState("");
 
-    const content = document.getElementById('content');
-    const cookie = document.cookie
-    console.log("cookie = ", cookie)
+    const [content, setContent] = useState('')
+    console.log("content = ", content)
+    // const cookie = document.cookie
+    // console.log("cookie = ", cookie)
+
+    const changeContent = (e) => {
+        setContent(e.target.value)
+    }
 
     const createPost = async () => {
         const response = await axios.post(
             "http://localhost:8080/post",
+            // TODO: change postId to session cookie
+            { postId: null, content: content, shares: 0, author: 1 },
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
-                // data: { postId: null, content: content.value, shares: 0, author: null }
             }
         )
         if (response.status !== 200) {
@@ -28,9 +32,9 @@ function CreatePost() {
 
     return (
         <>
-            <textarea id="content"/>
+            <input type="text" id="content" onChange={changeContent}/>
             <div></div>
-            <button onClick={createPost()} >Submit new post</button>
+            <button onClick={createPost}>Submit new post</button>
         </>
     )
 }
