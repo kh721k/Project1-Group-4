@@ -1,9 +1,20 @@
-import React from "react";
+import { useEffect, useState, React } from "react";
+// import PostList from "../Posts/PostList";
 
 import "./ProfilePage.css";
 
+/*
+TODO:
+Feed page = postlist without being user specific
+*/
 
-function ProfilePage() {
+function ProfilePage({user}) {
+
+    // const [followers, getFollowers] = useState([])
+    // const [following, getFollowing] = useState([])
+
+
+
     return (
         <div className='profile-info-container'>
             <div>
@@ -23,6 +34,7 @@ function ProfilePage() {
                     <span>Sponge Bob</span>
                 </div>
             </div>
+            {/* <PostList user={user}/> */}
         </div>
     )
 }

@@ -4,6 +4,8 @@ import Post from './Post';
 
 function PostList() {
 
+    // TODO: get all posts from specific user
+
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -21,7 +23,7 @@ function PostList() {
     },[]);
 
     const handlePostUpdated = (updatedPost) => {
-        setPosts((prevPosts) => 
+        setPosts((prevPosts) =>
             prevPosts.map((post) =>
                 post.postId === updatedPost.postId ? updatedPost : post
             )
@@ -31,9 +33,9 @@ function PostList() {
     if(!posts.length){
         return <div>No posts..</div>
     }
-    
+
     return (
-    
+
     <div>
         {posts.map(post => (
             <Post key={post.postId} post={post}/>
