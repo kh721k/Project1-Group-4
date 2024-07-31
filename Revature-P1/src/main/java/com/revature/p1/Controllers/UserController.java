@@ -1,6 +1,8 @@
 package com.revature.p1.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.p1.Exceptions.InvalidLogin;
 import com.revature.p1.Models.User;
 import com.revature.p1.Service.JwtTokenService;
@@ -70,16 +72,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<User> loginUser(@RequestBody User user, HttpServletResponse httpServletResponse) throws JsonProcessingException {
         if (userService.getUser(user.getUsername()) == null) {
-            return ResponseEntity.status(401).body("Invalid username");
+            return ResponseEntity.status(401).body(null);
         }
 
         User temp = userService.getUser(user.getUsername());
         String hashedPassword = this.userService.getUser(user.getUsername()).getPassword();
         BCrypt.Result result = BCrypt.verifyer().verify(user.getPassword().toCharArray(), hashedPassword);
         if (!result.verified) {
-            return ResponseEntity.status(401).body("Invalid password");
+            return ResponseEntity.status(401).body(null);
         }
 
         Map<String, String> claimsMap = new HashMap<>();
@@ -87,7 +89,7 @@ public class UserController {
         claimsMap.put("userID", String.valueOf(temp.getUserId()));
         Cookie cookie = new Cookie("Authentication", this.tokenService.generateToken(claimsMap));
         httpServletResponse.addCookie(cookie);
-        return ResponseEntity.status(200).body("Successful Login!");
+        return ResponseEntity.status(200).body(temp);
     }
 
     @GetMapping("/user/{userId}/followers")
