@@ -1,7 +1,6 @@
 import React, { FormEvent, useEffect, useState, useRef, useContext } from 'react';
 
 // import 'bootstrap/dist/css/bootstrap.css';
-import { AuthContext } from "../../Context/AuthContext.tsx"
 import axios from 'axios';
 
 const LOGIN_URL = 'http://localhost:8080/login';
