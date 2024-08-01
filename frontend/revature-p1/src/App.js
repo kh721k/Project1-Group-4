@@ -18,11 +18,10 @@ function App() {
         Inside App
         <NavBar />
         <Routes>
-          <Route path="/" element={<FeedPage />}></Route>
+          <Route path="/" element={<PostList />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/user" element={<ProfilePage />}></Route>
-          <Route path="/feed" element={<PostList />}></Route>
+          <Route path="/user:username" element={<ProfilePage />}></Route>
           {/* <Route path="/users/:username/posts/:postId" element={<PostPage/>}></Route> */}
           <Route path="/create-post" element={<CreatePost />}></Route>
           <Route path="/posts/:postId/create-comment" element={<CreateComment />}></Route>

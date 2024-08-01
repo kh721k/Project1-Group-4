@@ -8,6 +8,7 @@ import React, {
 
 // import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = "http://localhost:8080/login";
 
@@ -18,6 +19,8 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
+
+  const nav = useNavigate();
 
   // useEffect(() => {
   //   userRef.current.focus();
@@ -47,6 +50,8 @@ const Login = () => {
       //setUser('');
       //setPwd('');
       //above 2 lines can he handled by logout in AuthContext on the scale of the whole project as and when needed
+
+      nav(`/user/${sessionUser.username}`);
     } catch (error) {
       if (!error?.response) {
         setErrMsg("No Server Response");

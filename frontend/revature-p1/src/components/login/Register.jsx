@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 // const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -15,6 +16,8 @@ const Register = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
+
+  const nav = useNavigate();
 
   // useEffect(() => {
   //   setUser(USER_REGEX.test(user));
@@ -52,6 +55,8 @@ const Register = () => {
         }
       );
       console.log(response?.data);
+
+      nav("/");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");

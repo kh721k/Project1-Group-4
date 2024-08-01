@@ -27,10 +27,10 @@ function CreateComment() {
   };
 
   const createComment = async () => {
+    const currUser = JSON.parse(localStorage.getItem("user"));
     const response = await axios.post(
       "http://localhost:8080/comment",
-      // TODO: change author to session cookie
-      { commentId: null, content: content, author: 1, post: post },
+      { commentId: null, content: content, author: currUser, post: post },
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,

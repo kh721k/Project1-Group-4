@@ -32,6 +32,12 @@ function ProfilePage() {
     }
   };
 
+  const updateUser = async () => {
+    console.log("Button clicked");
+
+    
+  }
+
   // const [followers, getFollowers] = useState([])
   // const [following, getFollowing] = useState([])
 
@@ -47,7 +53,7 @@ function ProfilePage() {
       <div className="profile-info">
         <div className="profile-username">
           <span>{user?.username}</span>
-          <button>Edit profile</button>
+          <button onClick={updateUser}>Edit profile</button>
         </div>
 
         <div className="profile-stats">
