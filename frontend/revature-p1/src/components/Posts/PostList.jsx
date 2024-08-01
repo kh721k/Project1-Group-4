@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import "./PostList.css";
+import SinglePost from "./SinglePost";
 // import Post from "./Post";
 
 function PostList() {
   // TODO: get all posts from specific user
 
   const [posts, setPosts] = useState([]);
+  const [newPostContent, setNewPost] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,13 +28,15 @@ function PostList() {
     fetchPosts();
   }, []);
 
-  // const handlePostUpdated = (updatedPost) => {
-  // setPosts((prevPosts) =>
-  //   prevPosts.map((post) =>
-  //     post.postId === updatedPost.postId ? updatedPost : post
-  //   )
-  // );
-  // };
+  const handlePostUpdated = (updatedPost) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.postId === updatedPost.postId ? updatedPost : post
+      )
+    );
+  };
+
+ 
 
   // if (!posts.length) {
   //   return <div>No posts..</div>;
@@ -38,10 +44,10 @@ function PostList() {
 
   return (
     <div className="Posts">
-      {posts.map((post, index) => {
+      {posts.map((post) => {
         return (
-          <div key={index}>
-            {post.postId} | {post.content}
+          <div key={post.postId} className="Post">
+            <SinglePost post={post} />
           </div>
         );
       })}
