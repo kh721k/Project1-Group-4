@@ -3,15 +3,15 @@ import axios from "axios";
 
 function Like({ post, user }) {
   const [userList, setUserList] = useState([]);
-  const [like, setLike] = useState(
-    userList.some((u) => u.id === user.id) || false
-  );
+  const [like, setLike] = useState(userList.some((u) => u?.id === user?.userId));
   const [showLikeList, setShowLikeList] = useState(false);
+  const [likeNum, setLikeNum] = useState(userList?.length);
 
   useEffect(() => {
     getLikes();
-    setLike(userList.some((u) => u.id === user.id));
-  }, [post, user]);
+    setLike(userList.some((u) => u?.id === user?.id));
+    setLikeNum(userList?.length);
+  }, [post, user, userList]);
 
   const getLikes = async () => {
     try {
@@ -19,6 +19,7 @@ function Like({ post, user }) {
         `http://localhost:8080/posts/${post.postId}/likes`
       );
       setUserList(response.data);
+      console.log(response.data);
     } catch (error) {
       alert("Couldn't find post likes!");
     }
@@ -30,7 +31,9 @@ function Like({ post, user }) {
       `http://localhost:8080/posts/${post.postId}/${user.userId}`,
       { headers: { "Content-Type": "application/json" } }
     );
-    if (response.status == 200) setLike(true);
+    if (response.status === 200) {
+      setLike(true);
+    }
   };
 
   const handleUnlike = async (e) => {
@@ -39,17 +42,19 @@ function Like({ post, user }) {
       `http://localhost:8080/posts/${post.postId}/${user.userId}`,
       { headers: { "Content-Type": "application/json" } }
     );
-    if (response.status == 200) setLike(false);
+    if (response.status === 200) {
+      setLike(false);
+    }
   };
 
   return (
     <div>
       {like ? (
-        <button onClick={() => handleUnlike}>Unlike</button>
+        <button onClick={handleUnlike}>Unlike</button>
       ) : (
-        <button onClick={() => handleLike}>Like</button>
+        <button onClick={handleLike}>Like</button>
       )}
-      <span>{userList?.length} Likes</span>
+      <span>{likeNum} Likes</span>
       {showLikeList ? (
         <>
           <button onClick={() => setShowLikeList(false)}>Hide</button>
@@ -58,7 +63,7 @@ function Like({ post, user }) {
           ))}
         </>
       ) : (
-        <button onClick={() => setShowLikeList(false)}>Users</button>
+        <button onClick={() => setShowLikeList(true)}>Users</button>
       )}
     </div>
   );

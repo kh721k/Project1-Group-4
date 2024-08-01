@@ -16,8 +16,6 @@ function PostList({url}) {
     try {
       const response = await axios.get(url);
       setPosts(response.data);
-      console.log("RESPONSE DATA: ", response.data);
-      console.log(posts);
     } catch (error) {
       console.log(error);
       console.error("Error fetching posts:", error);

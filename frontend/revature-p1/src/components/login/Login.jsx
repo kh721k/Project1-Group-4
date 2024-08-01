@@ -46,10 +46,6 @@ const Login = () => {
 
       const sessionUser = JSON.parse(localStorage.getItem("user"));
       console.log("new logged in user = ", sessionUser);
-      // login(response.json);
-      //setUser('');
-      //setPwd('');
-      //above 2 lines can he handled by logout in AuthContext on the scale of the whole project as and when needed
 
       nav(`/user/${sessionUser.username}`);
     } catch (error) {
@@ -61,7 +57,7 @@ const Login = () => {
       }
       // errorRef.current.focus();
     }
-    // navigate to home w/ React useNav
+    
   };
 
   return (
