@@ -23,7 +23,7 @@ function NavBar() {
         </div>
         <div className="bar">
           <button>
-            <NavLink to="/users/:username">Profile {sessionUser?.username}</NavLink>
+            <NavLink to="/user">Profile {sessionUser?.username}</NavLink>
           </button>
           <button>
             <NavLink to="/create-post"> + </NavLink>
