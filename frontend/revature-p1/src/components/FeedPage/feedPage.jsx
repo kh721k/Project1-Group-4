@@ -1,9 +1,12 @@
 import React from "react";
+import PostList from "../Posts/PostList";
 
 function FeedPage() {
+  const url = "http://localhost:8080/posts"
+
   return (
     <>
-      <h1>Blank for now</h1>
+      <PostList url={url} />
     </>
   );
 }

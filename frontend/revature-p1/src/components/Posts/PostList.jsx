@@ -6,7 +6,7 @@ import SinglePost from "./SinglePost";
 
 const currUser = JSON.parse(localStorage.getItem("user"));
 
-function PostList() {
+function PostList({url}) {
   // TODO: get all posts from specific user
 
   const [posts, setPosts] = useState([]);
@@ -14,7 +14,7 @@ function PostList() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/posts`);
+      const response = await axios.get(url);
       setPosts(response.data);
       console.log("RESPONSE DATA: ", response.data);
       console.log(posts);

@@ -17,6 +17,8 @@ function ProfilePage() {
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
 
+  const url = `http://localhost:8080/post/${currUser.userId}`
+  
   useEffect(() => {
     getUser();
   }, [currUser]);
@@ -35,19 +37,20 @@ function ProfilePage() {
     }
   };
 
-  const getUserPosts = async () => {
-    const response = await axios.get(
-      `http://localhost:8080/post/${currUser.userId}`
-    );
 
-    if (response.status !== 200) {
-      alert("Couldn't fetch user's posts");
-      console.log("Reponase: ", response);
-    } else {
-      console.log("User's posts ", response.data);
-      setUserPosts(response.data);
-    }
-  };
+  // const getUserPosts = async () => {
+  //   const response = await axios.get(
+  //     `http://localhost:8080/post/${currUser.userId}`
+  //   );
+
+  //   if (response.status !== 200) {
+  //     alert("Couldn't fetch user's posts");
+  //     console.log("Reponase: ", response);
+  //   } else {
+  //     console.log("User's posts ", response.data);
+  //     setUserPosts(response.data);
+  //   }
+  // };
 
   const updateUser = async () => {
     console.log("Button clicked");
@@ -95,17 +98,7 @@ function ProfilePage() {
       </div>
 
       <div className="user-posts">
-        {userPosts.map((post) => {
-          return (
-            <div key={post.postId} className="Post">
-              <div>
-                {post.postId} | {post.content}
-                <button>Create Comment</button>
-                <Like post={post} user={user} />
-              </div>
-            </div>
-          );
-        })}
+        <PostList url={url} />
       </div>
     </div>
   );
