@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import Post from './Post';
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
   const [content, setContent] = useState("");
   console.log("content = ", content);
-  // const cookie = document.cookie
-  // console.log("cookie = ", cookie)
+  const nav = useNavigate();
 
   const changeContent = (e) => {
     setContent(e.target.value);
@@ -20,14 +19,10 @@ function CreatePost() {
       shares: 0,
       author: currUser,
     };
-    const response = await axios.post(
-      "http://localhost:8080/post",
-      postObj,
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.post("http://localhost:8080/post", postObj, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
 
     if (response.status !== 200) {
       alert("Couldn't create post!");
@@ -35,6 +30,7 @@ function CreatePost() {
     }
 
     console.log("Created post!", response.data);
+    nav("/user/:username");
   };
 
   return (

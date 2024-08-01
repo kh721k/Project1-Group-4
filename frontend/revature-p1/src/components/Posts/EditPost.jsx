@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function EditPost({ post }) {
+function EditPost({ post, user, fetchPosts, setIsEditingPost }) {
   const [content, setContent] = useState(post.content);
   console.log("content = ", content);
 
@@ -10,12 +10,11 @@ function EditPost({ post }) {
   };
 
   const editPost = async () => {
-    const currUser = JSON.parse(localStorage.getItem("user"));
     const postObj = {
       postId: post.postId,
       content: content,
       shares: post.shares,
-      author: currUser,
+      author: user,
     };
     const response = await axios.put(
       `http://localhost:8080/post/${post.postId}`,
@@ -31,7 +30,23 @@ function EditPost({ post }) {
       console.log("Response: ", response);
     }
 
-    console.log("Created post!", response.data);
+    console.log("Edited post!", response.data);
+    fetchPosts();
+    setIsEditingPost(false);
+  };
+
+  const deletePost = async () => {
+    const response = await axios.delete(
+      `http://localhost:8080/post/${post.postId}`
+    );
+
+    if (response.status !== 200) {
+      alert("Couldn't delete post!");
+      console.log("Response: ", response);
+    }
+
+    console.log("Delete post", response.data);
+    fetchPosts();
   };
 
   return (
@@ -44,6 +59,7 @@ function EditPost({ post }) {
       />
       <div></div>
       <button onClick={editPost}>Update Post</button>
+      <button onClick={deletePost}>Delete Post</button>
     </>
   );
 }

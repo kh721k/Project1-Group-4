@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar() {
-  const sessionUser = JSON.parse(localStorage.getItem("user"))
-  console.log("session user = ", sessionUser)
+  const sessionUser = JSON.parse(localStorage.getItem("user"));
+  console.log("session user = ", sessionUser);
 
   return (
     <nav>
@@ -23,7 +23,9 @@ function NavBar() {
         </div>
         <div className="bar">
           <button>
-            <NavLink to="/user:username">Profile {sessionUser?.username}</NavLink>
+            <NavLink to={`/user/${sessionUser?.username}`}>
+              Profile {sessionUser?.username}
+            </NavLink>
           </button>
           <button>
             <NavLink to="/create-post"> + </NavLink>

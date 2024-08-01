@@ -4,6 +4,8 @@ import axios from "axios";
 // import PostList from "../Posts/PostList";
 
 import "./ProfilePage.css";
+import SinglePost from "../Posts/SinglePost";
+import Like from "../Posts/Like";
 
 /*
 TODO:
@@ -11,16 +13,17 @@ Feed page = postlist without being user specific
 */
 
 function ProfilePage() {
-  const username = JSON.parse(localStorage.getItem("user")).username;
+  const currUser = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     getUser();
-  }, [username]);
+  }, [currUser]);
 
   const getUser = async () => {
     const response = await axios.get(
-      `http://localhost:8080/user?username=${username}`,
+      `http://localhost:8080/user?username=${currUser.username}`,
       { withCredentials: true }
     );
 
@@ -32,11 +35,23 @@ function ProfilePage() {
     }
   };
 
+  const getUserPosts = async () => {
+    const response = await axios.get(
+      `http://localhost:8080/post/${currUser.userId}`
+    );
+
+    if (response.status !== 200) {
+      alert("Couldn't fetch user's posts");
+      console.log("Reponase: ", response);
+    } else {
+      console.log("User's posts ", response.data);
+      setUserPosts(response.data);
+    }
+  };
+
   const updateUser = async () => {
     console.log("Button clicked");
-
-    
-  }
+  };
 
   // const [followers, getFollowers] = useState([])
   // const [following, getFollowing] = useState([])
@@ -78,7 +93,20 @@ function ProfilePage() {
           <span>{user?.bio}</span>
         </div>
       </div>
-      {/* <PostList user={user}/> */}
+
+      <div className="user-posts">
+        {userPosts.map((post) => {
+          return (
+            <div key={post.postId} className="Post">
+              <div>
+                {post.postId} | {post.content}
+                <button>Create Comment</button>
+                <Like post={post} user={user} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
