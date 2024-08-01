@@ -96,6 +96,7 @@ const Register = () => {
           onChange={(e) => setPwd(e.target.value)}
           required
         />
+        <br />
         <label htmlFor="firstname">First Name:</label>
         <input
           type="text"
@@ -112,6 +113,7 @@ const Register = () => {
           onChange={(e) => setLastname(e.target.value)}
           required
         />
+        <br />
         <label htmlFor="email">Email Address:</label>
         <input
           type="email"
@@ -120,6 +122,7 @@ const Register = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        <br />
         <label htmlFor="bio">User Bio:</label>
         <input
           type="text"

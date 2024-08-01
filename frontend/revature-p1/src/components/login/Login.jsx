@@ -74,6 +74,7 @@ const Login = () => {
           onChange={(e) => setUser(e.target.value)}
           required
         />
+        <br />
 
         <label htmlFor="password">Password:</label>
         <input
