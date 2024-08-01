@@ -35,15 +35,19 @@ public class PostService {
         }
     }
 
-    public Post getPostByPostId(int postId){
+    public List<Post> getAllPosts(){
+        return postRepo.findAllPosts();
+    }
+
+    public Post getPostByPostId(Integer postId){
         return postRepo.findPostByPostId(postId);
     }
 
-    public List<Post> getPostsByUser(int userId){
+    public List<Post> getPostsByUser(Integer userId){
         return postRepo.findPostByUserId(userId);
     }
 
-    public Post editPost(int postId, Post post){
+    public Post editPost(Integer postId, Post post){
         Post currPost = postRepo.findPostByPostId(postId);
         if(currPost == null){
             System.out.println("Post doesn't exist.");
@@ -55,7 +59,7 @@ public class PostService {
         }
     }
 
-    public void deletePost(int postId){
+    public void deletePost(Integer postId){
         Post currPost = postRepo.findPostByPostId(postId);
         if(currPost == null){
             System.out.println("Post doesn't exist.");
@@ -66,7 +70,7 @@ public class PostService {
         }
     }
 
-    public Post sharePost(int postId, int userId){
+    public Post sharePost(Integer postId, Integer userId){
         Post originalPost = postRepo.findPostByPostId(postId);
         if(originalPost == null){
             System.out.println("Original post does not exist.");

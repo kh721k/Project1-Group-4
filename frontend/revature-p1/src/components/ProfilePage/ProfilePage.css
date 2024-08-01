@@ -20,6 +20,10 @@
     margin: 0px 10px 0px 10px;
 }
 
+.profile-name {
+    font-weight: bold;
+}
+
 .profile-username,
 .profile-info,
 .profile-name {

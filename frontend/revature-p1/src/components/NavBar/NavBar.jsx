@@ -12,7 +12,7 @@ function NavBar() {
       <div className="nav-bar">
         <div className="bar">
           <button>
-            <NavLink to="/feed"> Home </NavLink>
+            <NavLink to="/"> Home </NavLink>
           </button>
           <button>
             <NavLink to="/login"> Login </NavLink>
@@ -23,7 +23,7 @@ function NavBar() {
         </div>
         <div className="bar">
           <button>
-            <NavLink to="/users/:username">Profile {sessionUser?.username}</NavLink>
+            <NavLink to="/user:username">Profile {sessionUser?.username}</NavLink>
           </button>
           <button>
             <NavLink to="/create-post"> + </NavLink>

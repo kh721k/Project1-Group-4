@@ -3,30 +3,23 @@ import axios from 'axios';
 
 function Like({ post, user }) {
     const [userList, setUserList] = useState([])
-    const [like, setLike] = useState(false)
+    const [like, setLike] = useState(userList.some(u => u.id === user.id) || false)
     const [showLikeList, setShowLikeList] = useState(false)
 
     useEffect(() => {
       getLikes()
+      setLike(userList.some(u => u.id === user.id))
     }, [post, user])
 
-    // see if current like exists -> if it does, setLike(true)
     const getLikes = async () => {
-        const response = await axios.get(
-            `http://localhost:8080/posts/${post.postId}/likes`,
-            { withCredentials: true }
-        )
-        if (response.status !== 200) {
+        try {
+            const response = await axios.get(`http://localhost:8080/posts/${post.postId}/likes`)
+            setUserList(response.data)
+        } catch (error) {
             alert("Couldn't find post likes!")
             console.log("Response: ", response)
-        } else {
-            setUserList(response.data)
         }
     }
-
-    // getSingleLike
-        // check if user is in getLikes list
-        // setLike(true)
 
     const handleLike = async (e) => {
         e.preventDefault()
@@ -47,14 +40,24 @@ function Like({ post, user }) {
     }
 
     return (
-        <>
+        <div>
             {like ? (
                 <button onClick={() => handleUnlike}>Unlike</button>
             ) : (
                 <button onClick={() => handleLike}>Like</button>
             )}
-            <span>{}</span>
-        </>
+            <span>{userList?.length} Likes</span>
+            {showLikeList ? (
+                <>
+                    <button onClick={() => setShowLikeList(false)}>Hide</button>
+                    {userList.map((user, i) => (
+                        <div key={i}>{user.username}</div>
+                    ))}
+                </>
+            ) : (
+                <button onClick={() => setShowLikeList(false)}>Users</button>
+            )}
+        </div>
     )
 }
 
