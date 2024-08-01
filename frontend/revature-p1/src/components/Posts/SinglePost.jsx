@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
+import Like from "./Like";
+import EditPost from "./EditPost";
 
-function SinglePost({ post }) {
-  const [isEditing, setIsEditing] = useState(false);
+function SinglePost({ post, user }) {
+  const [isEditingPost, setIsEditingPost] = useState(false);
 
   const editPost = () => {
-    setIsEditing(true);
+    setIsEditingPost(true);
   };
 
   return (
     <>
-      {/* TODO: local state HERE */}
       <div>
         {post.postId} | {post.content}
       </div>
       {/* <button onClick={editPost}>Edit Post</button> */}
-      {!isEditing ? (
+      {!isEditingPost ? (
         <button onClick={editPost} key={post.postId}>
           Edit Post
         </button>
       ) : (
-        <input type="text"></input>
+        <EditPost post={post}/>
       )}
-      Single Post Here Comments Here
       <button>Create Comment</button>
+      <Like post={post} user={user} />
     </>
   );
 }

@@ -5,6 +5,8 @@ import "./PostList.css";
 import SinglePost from "./SinglePost";
 // import Post from "./Post";
 
+const currUser = JSON.parse(localStorage.getItem("user"));
+
 function PostList() {
   // TODO: get all posts from specific user
 
@@ -13,7 +15,6 @@ function PostList() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const currUser = JSON.parse(localStorage.getItem("user"));
       try {
         const response = await axios.get(`http://localhost:8080/posts`);
         setPosts(response.data);
@@ -47,7 +48,7 @@ function PostList() {
       {posts.map((post) => {
         return (
           <div key={post.postId} className="Post">
-            <SinglePost post={post} />
+            <SinglePost post={post} user={currUser} />
           </div>
         );
       })}
