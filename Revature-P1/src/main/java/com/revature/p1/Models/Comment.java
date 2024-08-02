@@ -27,8 +27,8 @@ public class Comment {
     @JsonBackReference("postComments")
     private Post post;
 
-    @Column(name = "timestamp", nullable = false)
-    Timestamp time;
+//    @Column(name = "timestamp", nullable = false)
+//    Timestamp time;
 
     @ManyToMany
     private List<User> usersWhoLikeThisComment;

@@ -12,15 +12,27 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/comment")
+    @PostMapping("/comment/{user_id}/{post_id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody Comment cmt) {
-        return "Good";
+    public Comment createComment(@PathVariable("user_id") Integer userId, @PathVariable("post_id") Integer postId, @RequestBody Comment cmt) {
+        return commentService.createComment(userId, postId, cmt);
     }
 
     @GetMapping("/comment/{comment_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Comment view(@PathVariable("comment_id") String id) {
-        return commentService.get(Integer.valueOf(id));
+    public Comment view(@PathVariable("comment_id") Integer id) {
+        return commentService.get(id);
+    }
+
+    @PutMapping("/comment/{comment_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable("comment_id") Integer id, @RequestBody Comment cmt) {
+        commentService.update(cmt.getContent(), id);
+    }
+
+    @DeleteMapping("/comment/{comment_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("comment_id") Integer id) {
+        commentService.delete(id);
     }
 }

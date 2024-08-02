@@ -26,7 +26,7 @@ public class LikeService {
 
     }
 
-    // create like for a post
+    // createComment like for a post
     public void likePost(Integer userId, Integer postId) {
         User user = userRepo.findUserByUserId(userId);
         Post post = postRepo.findPostByPostId(postId);
