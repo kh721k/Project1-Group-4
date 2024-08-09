@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-// TODO: Use Lombok, refactor getters and setters
 
 @Entity(name = "comments")
 public class Comment {
@@ -27,8 +26,6 @@ public class Comment {
     @JsonBackReference("postComments")
     private Post post;
 
-//    @Column(name = "timestamp", nullable = false)
-//    Timestamp time;
 
     @ManyToMany
     private List<User> usersWhoLikeThisComment;
@@ -47,7 +44,6 @@ public class Comment {
         this.content = content;
         this.author = author;
         this.post = post;
-//        this.time = ; // TODO:
         this.usersWhoLikeThisComment = usersWhoLikeThisComment;
     }
 

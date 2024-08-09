@@ -22,8 +22,6 @@ public class User {
     private String bio;
 
     @Column(unique = true, nullable = false)
-//    @Length(min = 6, max = 20)
-//    @Pattern(regexp = "^[A-Za-z0-9]{6,20}$")
     private String username;
 
     private String password;

@@ -33,12 +33,6 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    // FIXME: disambiguate
-//    @GetMapping("/post/{postId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Post getPostByPostId(@PathVariable("postId") Integer postId){
-//        return postService.getPostByPostId(postId);
-//    }
 
     @GetMapping("/post/{userId}")
     @ResponseStatus(HttpStatus.OK)
